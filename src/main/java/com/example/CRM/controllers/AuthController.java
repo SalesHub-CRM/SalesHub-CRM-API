@@ -112,9 +112,8 @@ public class AuthController {
     utilisateur.setBirthdate(signUpRequest.getBirthdate());
     utilisateur.setCin(signUpRequest.getCin());
     utilisateur.setAccountstatus(1);
-    //utilisateur.setAccountstatus(signUpRequest.getAccountstatus());
     utilisateur.setConfirmaccount(false);
-    //utilisateur.setConfirmaccount(signUpRequest.getConfirmaccount());
+
 
 
     Set<String> strRoles = signUpRequest.getRoles();
