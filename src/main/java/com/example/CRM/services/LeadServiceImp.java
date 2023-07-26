@@ -2,6 +2,7 @@ package com.example.CRM.services;
 
 import com.example.CRM.entities.Lead;
 import com.example.CRM.repositories.LeadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,15 +10,20 @@ import java.util.List;
 @Service
 public class LeadServiceImp implements LeadService{
 
-    LeadRepository leadRepository;
+    private final LeadRepository leadRepository;
+    @Autowired
+    public LeadServiceImp(LeadRepository leadRepository)
+    {
+        this.leadRepository=leadRepository;
+    }
     @Override
     public Lead addAndAssignLeadToEmployee(Lead lead) {
-        return null;
+        return leadRepository.save(lead);
     }
 
     @Override
     public Lead updateLead(Lead lead) {
-        return null;
+        return leadRepository.save(lead);
     }
 
     @Override
@@ -32,6 +38,6 @@ public class LeadServiceImp implements LeadService{
 
     @Override
     public void deleteLead(Long id) {
-
+    leadRepository.deleteById(id);
     }
 }

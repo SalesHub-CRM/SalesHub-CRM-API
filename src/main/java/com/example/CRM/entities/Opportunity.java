@@ -10,44 +10,40 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lead {
+public class Opportunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String salutation;
-    private String firstname;
-    private String lastname;
-    private String title;
-    private String company;
-    private String email;
-    private Long phone;
-    private String address;
-    private String city;
-    private Long zipcode;
-    private String source;
-    private Integer employeenumber;
-    private String industry;
-    private Double annualrevenue;
+    private String name;
+    private Date closedate;
+    private Double amount;
+    private Integer probability;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "lead_status_table",
-            joinColumns = @JoinColumn(name = "lead_id"),
-            inverseJoinColumns = @JoinColumn(name = "leadstatus_id"))
-    private Set<LeadStatus> leadStatusSet = new HashSet<>();
-
+    @JoinTable(name = "opportunity_stage_table",
+            joinColumns = @JoinColumn(name = "opportunity_id"),
+            inverseJoinColumns = @JoinColumn(name = "opportunitystage_id"))
+    private Set<OpportunityStage> opportunitystages=new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @OneToMany(mappedBy = "opportunity",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Product> products;
 }

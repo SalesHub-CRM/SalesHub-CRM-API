@@ -1,6 +1,5 @@
 package com.example.CRM.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,30 +8,31 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Group {
+public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String salutation;
+    private String firstname;
+    private String lastname;
+    private String title;
+    private String email;
+    private Long phone;
+    private String address;
+    private String address2;
+    private String city;
+    private Long zipcode;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Administrator administrator;
-
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Employee>employees;
-
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Task>tasks;
-
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

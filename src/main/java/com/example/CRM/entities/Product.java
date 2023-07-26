@@ -15,24 +15,26 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Group {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
+    private Double price;
+    private Date lastname;
+    private Date productionstart;
+    private String productionend;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Campaign> campaigns;
+
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Administrator administrator;
-
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Employee>employees;
-
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Task>tasks;
+    @JoinColumn(name = "opportunity_id")
+    private Opportunity opportunity;
 
 }

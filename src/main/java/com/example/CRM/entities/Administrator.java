@@ -17,4 +17,7 @@ import java.util.List;
 public class Administrator extends User{
     private Boolean confirmaccount; // account confirmation with mailer api
 
+    @OneToMany(mappedBy = "administrator",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Group>groups;
+
 }

@@ -3,20 +3,19 @@ package com.example.CRM.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="leadstatus")
-public class LeadStatus {
+public class CaseType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private ELeadStatus name;
+    private ECaseType name;
 
-    public LeadStatus(){
+    public CaseType() {
     }
 
-    public LeadStatus(ELeadStatus name) {
+    public CaseType(ECaseType name) {
         this.name = name;
     }
 
@@ -24,7 +23,7 @@ public class LeadStatus {
         return id;
     }
 
-    public ELeadStatus getName() {
+    public ECaseType getName() {
         return name;
     }
 
@@ -32,7 +31,7 @@ public class LeadStatus {
         this.id = id;
     }
 
-    public void setName(ELeadStatus name) {
+    public void setName(ECaseType name) {
         this.name = name;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.CRM.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,39 +15,31 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task {
+public class Case {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String subject;
-    private String comment;
-    private String assignedto; //hadhi fiha employé, badalha object
-
-    // private Employee assignedto;
-    private Date duedate;
+    private String description;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "task_status_table",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "taskstatus_id"))
-    private Set<TaskStatus> taskStatus= new HashSet<>();
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "priority_table",
-            joinColumns = @JoinColumn(name = "task_id"),
+            joinColumns = @JoinColumn(name = "case_id"),
             inverseJoinColumns = @JoinColumn(name = "priority_id"))
-    private Set<Priority>priorities=new HashSet<>();
+    private Set<Priority> priorities=new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "case_type_table",
+            joinColumns = @JoinColumn(name = "case_id"),
+            inverseJoinColumns = @JoinColumn(name = "casetype_id"))
+    private Set<CaseType> caseTypes=new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "client_id")
+    private Client client;
 
 }

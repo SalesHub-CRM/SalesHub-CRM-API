@@ -19,7 +19,7 @@ public class LoginResponse {
 	private String lastname;
 	private String username;
 	private String email;
-	private String password;
+
 	private Long phone;
 	private String gender;
 	private String city;
@@ -32,13 +32,13 @@ public class LoginResponse {
 	private Date updatedat;
 	private List<String> roles;
 
-	public LoginResponse(Long id, String firstname, String lastname, String username, String email, String password, Long phone, String gender, String city, Long zipcode, String fulladress, Date birthdate, Long cin, Integer accountstatus, Date createdat, Date updatedat, List<String> roles) {
+	public LoginResponse(Long id, String firstname, String lastname, String username, String email, Long phone, String gender, String city, Long zipcode, String fulladress, Date birthdate, Long cin, Integer accountstatus, Date createdat, Date updatedat, List<String> roles) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.email = email;
-		this.password = password;
+
 		this.phone = phone;
 		this.gender = gender;
 		this.city = city;
