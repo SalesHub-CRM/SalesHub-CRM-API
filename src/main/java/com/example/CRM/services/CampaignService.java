@@ -1,5 +1,7 @@
 package com.example.CRM.services;
 
+import com.example.CRM.dto.request.CampaignRequest;
+import com.example.CRM.dto.response.CampaignResponse;
 import com.example.CRM.entities.Campaign;
 
 import java.util.List;

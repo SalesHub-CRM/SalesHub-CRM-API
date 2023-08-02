@@ -1,5 +1,7 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.CampaignRequest;
+import com.example.CRM.dto.response.CampaignResponse;
 import com.example.CRM.entities.Campaign;
 import com.example.CRM.services.CampaignServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;

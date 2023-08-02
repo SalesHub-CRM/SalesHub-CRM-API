@@ -1,6 +1,7 @@
 package com.example.CRM.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,18 +35,14 @@ public class Lead {
     private Integer employeenumber;
     private String industry;
     private Double annualrevenue;
+    @Enumerated(EnumType.STRING)
+    private ELeadStatus status;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "lead_status_table",
-            joinColumns = @JoinColumn(name = "lead_id"),
-            inverseJoinColumns = @JoinColumn(name = "leadstatus_id"))
-    private Set<LeadStatus> leadStatusSet = new HashSet<>();
-
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

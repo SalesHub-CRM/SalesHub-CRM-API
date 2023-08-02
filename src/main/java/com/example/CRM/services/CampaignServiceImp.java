@@ -1,6 +1,6 @@
 package com.example.CRM.services;
 
-import com.example.CRM.entities.Campaign;
+import com.example.CRM.entities.*;
 import com.example.CRM.repositories.CampaignRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +13,23 @@ public class CampaignServiceImp implements CampaignService{
     private final CampaignRepository campaignRepository;
 
     @Autowired
-    public CampaignServiceImp(CampaignRepository campaignRepository)
-    {
-        this.campaignRepository=campaignRepository;
+    public CampaignServiceImp(CampaignRepository campaignRepository) {
+        this.campaignRepository = campaignRepository;
     }
+
 
     @Override
     public Campaign addCampaign(Campaign campaign) {
+
         return campaignRepository.save(campaign);
     }
 
     @Override
     public Campaign updateCampaign(Campaign campaign) {
+
+
         return campaignRepository.save(campaign);
+
     }
 
     @Override
@@ -35,6 +39,7 @@ public class CampaignServiceImp implements CampaignService{
 
     @Override
     public List<Campaign> getAllCampaigns() {
+
         return campaignRepository.findAll();
     }
 

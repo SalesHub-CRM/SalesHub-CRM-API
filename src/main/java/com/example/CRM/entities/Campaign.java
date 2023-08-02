@@ -1,6 +1,8 @@
 package com.example.CRM.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,27 +32,19 @@ public class Campaign {
     private Double actualcost;
     private Integer employeenumber;
     private Integer expectedresponse;
+    @Enumerated(EnumType.STRING)
+    private ECampaignType type;
+    @Enumerated(EnumType.STRING)
+    private ECampaignStatus status;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "campaign_type_table",
-            joinColumns = @JoinColumn(name = "campaign_id"),
-            inverseJoinColumns = @JoinColumn(name = "campaigntype_id"))
-    private Set<CampaignType> campaignTypes=new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "campaign_status_table",
-            joinColumns = @JoinColumn(name = "campaign_id"),
-            inverseJoinColumns = @JoinColumn(name = "campaignstatus_id"))
-    private Set<CampaignStatus> campaignStatusSet=new HashSet<>();
-
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "campaign",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Client>clients;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

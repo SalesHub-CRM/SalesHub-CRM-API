@@ -1,5 +1,6 @@
 package com.example.CRM.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,23 +22,16 @@ public class Case {
     private Long id;
     private String subject;
     private String description;
+    @Enumerated(EnumType.STRING)
+    private ECaseType type;
+    @Enumerated(EnumType.STRING)
+    private EPriority priority;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "priority_table",
-            joinColumns = @JoinColumn(name = "case_id"),
-            inverseJoinColumns = @JoinColumn(name = "priority_id"))
-    private Set<Priority> priorities=new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "case_type_table",
-            joinColumns = @JoinColumn(name = "case_id"),
-            inverseJoinColumns = @JoinColumn(name = "casetype_id"))
-    private Set<CaseType> caseTypes=new HashSet<>();
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

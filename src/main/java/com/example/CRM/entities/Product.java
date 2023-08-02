@@ -1,6 +1,8 @@
 package com.example.CRM.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,10 +31,10 @@ public class Product {
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Campaign> campaigns;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "opportunity_id")
     private Opportunity opportunity;

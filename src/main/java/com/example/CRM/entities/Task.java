@@ -1,6 +1,7 @@
 package com.example.CRM.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,27 +27,20 @@ public class Task {
 
     // private Employee assignedto;
     private Date duedate;
+    @Enumerated(EnumType.STRING)
+    private ETaskStatus status;
+    @Enumerated(EnumType.STRING)
+    private EPriority priority;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "task_status_table",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "taskstatus_id"))
-    private Set<TaskStatus> taskStatus= new HashSet<>();
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "priority_table",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "priority_id"))
-    private Set<Priority>priorities=new HashSet<>();
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

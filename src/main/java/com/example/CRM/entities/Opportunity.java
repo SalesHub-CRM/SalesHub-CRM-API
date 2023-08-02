@@ -1,6 +1,8 @@
 package com.example.CRM.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,25 +27,21 @@ public class Opportunity {
     private Date closedate;
     private Double amount;
     private Integer probability;
+    @Enumerated(EnumType.STRING)
+    private EOpportunityStage stage;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "opportunity_stage_table",
-            joinColumns = @JoinColumn(name = "opportunity_id"),
-            inverseJoinColumns = @JoinColumn(name = "opportunitystage_id"))
-    private Set<OpportunityStage> opportunitystages=new HashSet<>();
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "opportunity",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> products;
 }

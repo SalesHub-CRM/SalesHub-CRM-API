@@ -1,5 +1,6 @@
 package com.example.CRM.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +32,7 @@ public class Contact {
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

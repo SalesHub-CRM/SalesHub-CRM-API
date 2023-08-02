@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.GroupRequest;
 import com.example.CRM.entities.Group;
 import com.example.CRM.services.GroupServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class GroupController {
 
     @PostMapping
     @ResponseBody
-    public Group addGroup(@RequestBody Group group)
+    public Group addGroup(@RequestBody GroupRequest group)
     {
         return groupServiceImp.addGroup(group);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Group updateGroup(@RequestBody Group group)
+    public Group updateGroup(@RequestBody GroupRequest group, @PathVariable("id") Long id)
     {
-        return groupServiceImp.updateGroup(group);
+        return groupServiceImp.updateGroup(group,id);
     }
 
 

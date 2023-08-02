@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.LeadRequest;
 import com.example.CRM.entities.Lead;
 import com.example.CRM.services.LeadServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,17 @@ public class LeadController {
 
     @PostMapping
     @ResponseBody
-    public Lead addLead(@RequestBody Lead lead)
+    public Lead addLead(@RequestBody LeadRequest lead)
     {
         return leadServiceImp.addAndAssignLeadToEmployee(lead);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Lead updateLead(@RequestBody Lead lead)
+    public Lead updateLead(@RequestBody Lead lead,@PathVariable("id") Long id)
     {
-        return leadServiceImp.updateLead(lead);
+        return leadServiceImp.updateLead(lead,id);
     }
 
 

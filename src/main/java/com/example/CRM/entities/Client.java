@@ -1,5 +1,7 @@
 package com.example.CRM.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,31 +33,28 @@ public class Client {
     private String industry;
     private String billingaddress;
     private String shippingaddress;
+    @Enumerated(EnumType.STRING)
+    private EClientType type;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "client_type_table",
-            joinColumns = @JoinColumn(name = "client_id"),
-            inverseJoinColumns = @JoinColumn(name = "clienttype_id"))
-    private Set<ClientType> clienttypes=new HashSet<>();
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "campaign_id")
     private Campaign campaign;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Opportunity>opportunities;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Case>cases;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Contact>contacts;
 }

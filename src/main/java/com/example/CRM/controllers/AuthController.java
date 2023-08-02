@@ -143,8 +143,6 @@ public class AuthController {
     utilisateur.setRoles(roles);
     userRepository.save(utilisateur);
 
-    System.out.println(utilisateur.getAccountstatus());
-
     return ResponseEntity.ok("ADMIN registered successfully!");
   }
 
