@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.ClientRequest;
 import com.example.CRM.entities.Client;
 import com.example.CRM.services.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class ClientController {
 
     @PostMapping
     @ResponseBody
-    public Client addClient(@RequestBody Client client)
+    public Client addClient(@RequestBody ClientRequest client)
     {
         return clientServiceImp.addClient(client);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Client updateClient(@RequestBody Client client)
+    public Client updateClient(@RequestBody ClientRequest client,@PathVariable("id") Long id)
     {
-        return clientServiceImp.updateClient(client);
+        return clientServiceImp.updateClient(client,id);
     }
 
 

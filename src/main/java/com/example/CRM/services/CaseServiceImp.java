@@ -1,7 +1,10 @@
 package com.example.CRM.services;
 
+import com.example.CRM.dto.request.CaseRequest;
 import com.example.CRM.entities.Case;
+import com.example.CRM.entities.Client;
 import com.example.CRM.repositories.CaseRepository;
+import com.example.CRM.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +14,38 @@ import java.util.List;
 public class CaseServiceImp implements CaseService{
 
     private final CaseRepository caseRepository;
+    private final ClientRepository clientRepository;
     @Autowired
-    public CaseServiceImp(CaseRepository caseRepository)
+    public CaseServiceImp(CaseRepository caseRepository,ClientRepository clientRepository)
     {
         this.caseRepository=caseRepository;
+        this.clientRepository=clientRepository;
     }
 
     @Override
-    public Case addCaseAndAssignToClient(Case newcase) {
-        return caseRepository.save(newcase);
+    public Case addCaseAndAssignToClient(CaseRequest newcase) {
+        Client client = clientRepository.findById(newcase.getClientId()).orElse(null);
+        Case ncs = new Case();
+
+        ncs.setSubject(newcase.getSubject());
+        ncs.setDescription(newcase.getDescription());
+        ncs.setType(newcase.getType());
+        ncs.setPriority(newcase.getPriority());
+        caseRepository.save(ncs);
+        ncs.setClient(client);
+        return caseRepository.save(ncs);
     }
 
     @Override
-    public Case updateCase(Case newcase) {
-        return caseRepository.save(newcase);
+    public Case updateCase(CaseRequest newcase,Long id) {
+        Client client = clientRepository.findById(newcase.getClientId()).orElse(null);
+        Case ncs = caseRepository.findById(id).orElse(null);
+        ncs.setSubject(newcase.getSubject());
+        ncs.setDescription(newcase.getDescription());
+        ncs.setType(newcase.getType());
+        ncs.setPriority(newcase.getPriority());
+        ncs.setClient(client);
+        return caseRepository.save(ncs);
     }
 
     @Override

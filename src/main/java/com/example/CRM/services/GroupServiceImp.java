@@ -44,22 +44,22 @@ public class GroupServiceImp implements GroupService{
 
     @Override
     public Group updateGroup(GroupRequest group,Long id) {
-        System.out.println("error starts here");
-        System.out.println(group.getAdminId());
+        /*System.out.println("error starts here");
+        System.out.println(group.getAdminId());*/
         Administrator administrator = administratorRepository.findById(group.getAdminId()).orElse(null);
 
-        System.out.println("admin starts here");
-        System.out.println(administrator.getEmail());
+        /*System.out.println("admin starts here");
+        System.out.println(administrator.getEmail());*/
 
         Group grp = groupRepository.findById(id).orElse(null);
 
-        System.out.println("group starts here");
-        System.out.println(grp.getName());
+        /*System.out.println("group starts here");
+        System.out.println(grp.getName());*/
 
         grp.setName(group.getName());
 
-        System.out.println(" modified group starts here");
-        System.out.println(grp.getName());
+        /*System.out.println(" modified group starts here");
+        System.out.println(grp.getName());*/
         grp.setAdministrator(administrator);
 
         return groupRepository.save(grp);

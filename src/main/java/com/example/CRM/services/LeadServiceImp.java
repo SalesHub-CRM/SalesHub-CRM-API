@@ -55,8 +55,28 @@ public class LeadServiceImp implements LeadService{
     }
 
     @Override
-    public Lead updateLead(Lead lead, Long id) {
-        return leadRepository.save(lead);
+    public Lead updateLead(LeadRequest lead, Long id) {
+        Employee employee = employeeRepository.findById(lead.getEmployeeID()).orElse(null);
+        Lead ld = leadRepository.findById(id).orElse(null);
+
+        ld.setSalutation(lead.getSalutation());
+        ld.setFirstname(lead.getFirstname());
+        ld.setLastname(lead.getLastname());
+        ld.setTitle(lead.getTitle());
+        ld.setCompany(lead.getCompany());
+        ld.setEmail(lead.getEmail());
+        ld.setPhone(lead.getPhone());
+        ld.setAddress(lead.getAddress());
+        ld.setCity(lead.getCity());
+        ld.setZipcode(lead.getZipcode());
+        ld.setSource(lead.getSource());
+        ld.setEmployeenumber(lead.getEmployeenumber());
+        ld.setIndustry(lead.getIndustry());
+        ld.setAnnualrevenue(lead.getAnnualrevenue());
+        ld.setStatus(lead.getStatus());
+        ld.setEmployee(employee);
+
+        return leadRepository.save(ld);
     }
 
     @Override

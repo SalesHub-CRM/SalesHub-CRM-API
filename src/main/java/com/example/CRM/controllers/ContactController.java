@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.ContactRequest;
 import com.example.CRM.entities.Contact;
 import com.example.CRM.services.ContactServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class ContactController {
 
     @PostMapping
     @ResponseBody
-    public Contact addContact(@RequestBody Contact contact)
+    public Contact addContact(@RequestBody ContactRequest contact)
     {
         return contactServiceImp.addContact(contact);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Contact updateContact(@RequestBody Contact contact)
+    public Contact updateContact(@RequestBody ContactRequest contact,@PathVariable("id") Long id)
     {
-        return contactServiceImp.updateContact(contact);
+        return contactServiceImp.updateContact(contact,id);
     }
 
 

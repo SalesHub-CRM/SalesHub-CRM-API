@@ -36,16 +36,16 @@ public class CampaignController {
 
     @PostMapping
     @ResponseBody
-    public Campaign addCampaign(@RequestBody Campaign campaign)
+    public Campaign addCampaign(@RequestBody CampaignRequest campaign)
     {
         return campaignService.addCampaign(campaign);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Campaign updateCampaign(@RequestBody Campaign campaign)
+    public Campaign updateCampaign(@RequestBody CampaignRequest campaign,@PathVariable("id") Long id)
     {
-        return campaignService.updateCampaign(campaign);
+        return campaignService.updateCampaign(campaign,id);
     }
 
     @DeleteMapping("/{id}")

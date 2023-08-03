@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.TaskRequest;
 import com.example.CRM.entities.Task;
 import com.example.CRM.services.TaskServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class TaskController {
 
     @PostMapping
     @ResponseBody
-    public Task addTask(@RequestBody Task task)
+    public Task addTask(@RequestBody TaskRequest task)
     {
         return taskServiceImp.addTask(task);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Task updateTask(@RequestBody Task task)
+    public Task updateTask(@RequestBody TaskRequest task,@PathVariable("id") Long id)
     {
-        return taskServiceImp.updateTask(task);
+        return taskServiceImp.updateTask(task,id);
     }
 
 

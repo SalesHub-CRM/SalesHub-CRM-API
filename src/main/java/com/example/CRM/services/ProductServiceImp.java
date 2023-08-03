@@ -1,6 +1,9 @@
 package com.example.CRM.services;
 
+import com.example.CRM.dto.request.ProductRequest;
+import com.example.CRM.entities.Opportunity;
 import com.example.CRM.entities.Product;
+import com.example.CRM.repositories.OpportunityRepository;
 import com.example.CRM.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,20 +13,39 @@ import java.util.List;
 @Service
 public class ProductServiceImp implements ProductService{
     private final ProductRepository productRepository;
+    private final OpportunityRepository opportunityRepository;
     @Autowired
-    public ProductServiceImp(ProductRepository productRepository)
+    public ProductServiceImp(ProductRepository productRepository,OpportunityRepository opportunityRepository)
     {
         this.productRepository=productRepository;
+        this.opportunityRepository=opportunityRepository;
     }
 
     @Override
-    public Product addProduct(Product product) {
-        return productRepository.save(product);
+    public Product addProduct(ProductRequest product) {
+        Opportunity opportunity=opportunityRepository.findById(product.getOpportunityId()).orElse(null);
+        Product prdt=new Product();
+        prdt.setName(product.getName());
+        prdt.setDescription(product.getDescription());
+        prdt.setPrice(product.getPrice());
+        prdt.setProductionstart(product.getProductionstart());
+        prdt.setProductionend(product.getProductionend());
+        productRepository.save(prdt);
+        prdt.setOpportunity(opportunity);
+        return productRepository.save(prdt);
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
+    public Product updateProduct(ProductRequest product,Long id) {
+        Opportunity opportunity=opportunityRepository.findById(product.getOpportunityId()).orElse(null);
+        Product prdt=productRepository.findById(id).orElse(null);
+        prdt.setName(product.getName());
+        prdt.setDescription(product.getDescription());
+        prdt.setPrice(product.getPrice());
+        prdt.setProductionstart(product.getProductionstart());
+        prdt.setProductionend(product.getProductionend());
+        prdt.setOpportunity(opportunity);
+        return productRepository.save(prdt);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.OpportunityRequest;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.services.OpportunityServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class OpportunityController {
 
     @PostMapping
     @ResponseBody
-    public Opportunity addOpportunity(@RequestBody Opportunity opportunity)
+    public Opportunity addOpportunity(@RequestBody OpportunityRequest opportunity)
     {
         return opportunityServiceImp.addOpportunity(opportunity);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Opportunity updateOpportunity(@RequestBody Opportunity opportunity)
+    public Opportunity updateOpportunity(@RequestBody OpportunityRequest opportunity,@PathVariable("id") Long id)
     {
-        return opportunityServiceImp.updateOpportunity(opportunity);
+        return opportunityServiceImp.updateOpportunity(opportunity,id);
     }
 
 

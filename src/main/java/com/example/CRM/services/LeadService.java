@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface LeadService {
     public Lead addAndAssignLeadToEmployee(LeadRequest lead);
-    public Lead updateLead(Lead lead,Long id);
+    public Lead updateLead(LeadRequest lead,Long id);
     public Lead getLeadById(Long id);
     public List<Lead>getAllLeads();
     public void deleteLead(Long id);

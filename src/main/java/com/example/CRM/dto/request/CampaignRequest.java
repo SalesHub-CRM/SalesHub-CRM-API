@@ -1,5 +1,9 @@
 package com.example.CRM.dto.request;
 
+import com.example.CRM.entities.ECampaignStatus;
+import com.example.CRM.entities.ECampaignType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CampaignRequest {
-    private Long id;
     private String name;
     private String description;
     private Date startdate;
@@ -24,7 +27,11 @@ public class CampaignRequest {
     private Double actualcost;
     private Integer employeenumber;
     private Integer expectedresponse;
-    private Date createdat;
-    private Date updatedat;
+    @Enumerated(EnumType.STRING)
+    private ECampaignType type;
+    @Enumerated(EnumType.STRING)
+    private ECampaignStatus status;
+    private Long productId;
+
 
 }

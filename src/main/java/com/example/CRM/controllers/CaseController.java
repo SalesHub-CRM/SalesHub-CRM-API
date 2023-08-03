@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.CaseRequest;
 import com.example.CRM.entities.Case;
 import com.example.CRM.services.CaseServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class CaseController {
 
     @PostMapping
     @ResponseBody
-    public Case addCase(@RequestBody Case cas)
+    public Case addCase(@RequestBody CaseRequest cas)
     {
         return caseServiceImp.addCaseAndAssignToClient(cas);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Case updateCase(@RequestBody Case cas)
+    public Case updateCase(@RequestBody CaseRequest cas,@PathVariable("id") Long id)
     {
-        return caseServiceImp.updateCase(cas);
+        return caseServiceImp.updateCase(cas,id);
     }
 
 

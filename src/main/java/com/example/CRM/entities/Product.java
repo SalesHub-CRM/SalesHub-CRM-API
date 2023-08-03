@@ -24,9 +24,8 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private Date lastname;
     private Date productionstart;
-    private String productionend;
+    private Date productionend;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp

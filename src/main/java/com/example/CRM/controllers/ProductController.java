@@ -1,5 +1,6 @@
 package com.example.CRM.controllers;
 
+import com.example.CRM.dto.request.ProductRequest;
 import com.example.CRM.entities.Product;
 import com.example.CRM.services.ProductServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class ProductController {
 
     @PostMapping
     @ResponseBody
-    public Product addProduct(@RequestBody Product product)
+    public Product addProduct(@RequestBody ProductRequest product)
     {
         return productServiceImp.addProduct(product);
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseBody
-    public Product updateProduct(@RequestBody Product product)
+    public Product updateProduct(@RequestBody ProductRequest product,@PathVariable("id") Long id)
     {
-        return productServiceImp.updateProduct(product);
+        return productServiceImp.updateProduct(product,id);
     }
 
 
