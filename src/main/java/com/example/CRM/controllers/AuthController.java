@@ -14,10 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -26,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 //@CrossOrigin(origins = "${baseUrl}",allowCredentials ="true",allowedHeaders = "*")
 @RequestMapping("/auth")
@@ -64,8 +62,11 @@ public class AuthController {
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
 
+    HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.set("Access-Control-Allow-Credentials",
+            "true");
 
-      return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+      return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).headers(responseHeaders)
               .body(new LoginResponse(
                       userDetails.getId(),
                       userDetails.getFirstname(),
@@ -88,6 +89,7 @@ public class AuthController {
 
   @PostMapping("/admin/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody AdminSignUpRequest signUpRequest) {
+    System.out.println("hello");
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body("Error: Username is already taken!");
     }
@@ -113,6 +115,7 @@ public class AuthController {
     utilisateur.setAccountstatus(1);
     utilisateur.setConfirmaccount(false);
 
+    System.out.println(utilisateur);
 
 
     Set<String> strRoles = signUpRequest.getRoles();
