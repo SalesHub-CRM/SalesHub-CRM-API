@@ -30,9 +30,10 @@ public class LoginResponse {
 	private Integer accountstatus; //0 = deleted / 1 = active / 2 = suspended
 	private Date createdat;
 	private Date updatedat;
+	private String cookie;
 	private List<String> roles;
 
-	public LoginResponse(Long id, String firstname, String lastname, String username, String email, Long phone, String gender, String city, Long zipcode, String fulladress, Date birthdate, Long cin, Integer accountstatus, Date createdat, Date updatedat, List<String> roles) {
+	public LoginResponse(Long id, String firstname, String lastname, String username, String email, Long phone, String gender, String city, Long zipcode, String fulladress, Date birthdate, Long cin, Integer accountstatus, Date createdat, Date updatedat,String cookie, List<String> roles) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -49,6 +50,7 @@ public class LoginResponse {
 		this.accountstatus = accountstatus;
 		this.createdat = createdat;
 		this.updatedat = updatedat;
+		this.cookie=cookie;
 		this.roles = roles;
 	}
 }

@@ -65,7 +65,7 @@ public class AuthController {
     HttpHeaders responseHeaders = new HttpHeaders();
     responseHeaders.set("Access-Control-Allow-Credentials",
             "true");
-
+      System.out.println(jwtCookie);
       return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).headers(responseHeaders)
               .body(new LoginResponse(
                       userDetails.getId(),
@@ -83,6 +83,7 @@ public class AuthController {
                       userDetails.getAccountstatus(),
                       userDetails.getCreatedat(),
                       userDetails.getUpdatedat(),
+                      jwtCookie.toString(),
                       roles));
 
   }
