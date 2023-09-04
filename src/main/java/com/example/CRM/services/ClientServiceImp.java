@@ -1,33 +1,38 @@
 package com.example.CRM.services;
 
+import com.example.CRM.components.UserServiceComponent;
+import com.example.CRM.dto.mapper.ClientMapper;
 import com.example.CRM.dto.request.ClientRequest;
+import com.example.CRM.dto.response.ClientResponse;
+import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Campaign;
 import com.example.CRM.entities.Client;
-import com.example.CRM.entities.Employee;
 import com.example.CRM.repositories.CampaignRepository;
 import com.example.CRM.repositories.ClientRepository;
-import com.example.CRM.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ClientServiceImp implements ClientService{
     private final ClientRepository clientRepository;
-    private final EmployeeRepository employeeRepository;
     private final CampaignRepository campaignRepository;
+    private final UserServiceComponent userServiceComponent;
     @Autowired
-    public ClientServiceImp(ClientRepository clientRepository,EmployeeRepository employeeRepository,CampaignRepository campaignRepository)
+    public ClientServiceImp(ClientRepository clientRepository,CampaignRepository campaignRepository, UserServiceComponent userServiceComponent)
     {
         this.clientRepository=clientRepository;
-        this.employeeRepository=employeeRepository;
         this.campaignRepository=campaignRepository;
+        this.userServiceComponent=userServiceComponent;
     }
+
 
     @Override
     public Client addClient(ClientRequest client) {
-        Employee employee = employeeRepository.findById(client.getEmployeeId()).orElse(null);
+
         Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
         Client clt = new Client();
         clt.setName(client.getName());
@@ -42,15 +47,14 @@ public class ClientServiceImp implements ClientService{
         clt.setBillingaddress(client.getBillingaddress());
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
+        clt.setEmployeeId(client.getEmployeeId());
         clientRepository.save(clt);
-        clt.setEmployee(employee);
         clt.setCampaign(campaign);
         return clientRepository.save(clt);
     }
 
     @Override
     public Client updateClient(ClientRequest client,Long id) {
-        Employee employee = employeeRepository.findById(client.getEmployeeId()).orElse(null);
         Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
         Client clt = clientRepository.findById(id).orElse(null);
         clt.setName(client.getName());
@@ -65,19 +69,33 @@ public class ClientServiceImp implements ClientService{
         clt.setBillingaddress(client.getBillingaddress());
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
-        clt.setEmployee(employee);
+        clt.setEmployeeId(client.getEmployeeId());
         clt.setCampaign(campaign);
         return clientRepository.save(clt);
     }
 
     @Override
-    public Client getClientById(Long id) {
-        return clientRepository.findById(id).orElse(null);
+    public ClientResponse getClientById(Long id) {
+        Client client = clientRepository.findById(id).orElse(null);
+        UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+
+        ClientMapper clientMapper = new ClientMapper();
+        return clientMapper.convertToDTO(client,user);
     }
 
     @Override
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
+    public List<ClientResponse> getAllClients() {
+        List<Client>allClients = clientRepository.findAll();
+        List<ClientResponse>clientResponses=new ArrayList<>();
+        ClientMapper clientMapper = new ClientMapper();
+
+        for (Client client : allClients)
+        {
+            UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+            ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
+            clientResponses.add(clientResponse);
+        }
+        return clientResponses;
     }
 
     @Override

@@ -40,7 +40,6 @@ public class TaskController {
         return taskServiceImp.addTask(task);
     }
 
-
     @PutMapping("/{id}")
     @ResponseBody
     public Task updateTask(@RequestBody TaskRequest task,@PathVariable("id") Long id)
@@ -48,12 +47,18 @@ public class TaskController {
         return taskServiceImp.updateTask(task,id);
     }
 
-
     @DeleteMapping("/{id}")
     @ResponseBody
     public String deleteTask(@PathVariable("id") Long id)
     {
         taskServiceImp.deleteTask(id);
         return ("deleted successfully");
+    }
+
+    @GetMapping("/ListByEmployee/{id}")
+    @ResponseBody
+    public List<Task> listByEmployeeId(@PathVariable("id") Long id)
+    {
+        return taskServiceImp.listByEmployeeId(id);
     }
 }

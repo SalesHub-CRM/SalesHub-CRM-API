@@ -31,6 +31,7 @@ public class Task {
     private ETaskStatus status;
     @Enumerated(EnumType.STRING)
     private EPriority priority;
+    private Long EmployeeId;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
@@ -40,9 +41,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.CRM.entities;
 
 
+import com.example.CRM.dto.response.UserResponseDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -27,14 +28,17 @@ public class Group {
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
+    private Long adminId;
 
-    @JsonBackReference
+
+
+/*    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Administrator administrator;
     @JsonManagedReference
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Employee>employees;
+    private List<Employee>employees;*/
     @JsonManagedReference
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task>tasks;

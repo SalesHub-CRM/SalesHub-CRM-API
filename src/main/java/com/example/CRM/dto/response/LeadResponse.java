@@ -1,26 +1,16 @@
-package com.example.CRM.entities;
+package com.example.CRM.dto.response;
 
-
-import com.example.CRM.dto.response.UserResponseDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+import com.example.CRM.entities.ELeadStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Lead {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+public class LeadResponse {
     private Long id;
     private String salutation;
     private String firstname;
@@ -38,11 +28,5 @@ public class Lead {
     private Double annualrevenue;
     @Enumerated(EnumType.STRING)
     private ELeadStatus status;
-    @CreationTimestamp
-    private Date createdat;
-    @UpdateTimestamp
-    private Date updatedat;
-
-    private Long employeeID;
-
+    private UserResponseDTO user = new UserResponseDTO();
 }

@@ -29,14 +29,11 @@ public class Opportunity {
     private Integer probability;
     @Enumerated(EnumType.STRING)
     private EOpportunityStage stage;
+    private Long employeeId;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")

@@ -11,4 +11,5 @@ public interface OpportunityService {
     public Opportunity getOpportunityById(Long id);
     public List<Opportunity> GetAllOpportunities();
     public void deleteOpportunity(Long id);
+    public List<Opportunity>listByEmployee(Long employeeId);
 }

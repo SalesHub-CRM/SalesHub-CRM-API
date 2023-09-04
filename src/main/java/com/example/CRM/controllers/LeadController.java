@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.LeadRequest;
+import com.example.CRM.dto.response.LeadResponse;
 import com.example.CRM.entities.Lead;
 import com.example.CRM.services.LeadServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/lead")
+@RequestMapping("/API/lead")
 public class LeadController {
     private final LeadServiceImp leadServiceImp;
     @Autowired
@@ -20,14 +21,14 @@ public class LeadController {
 
     @GetMapping
     @ResponseBody
-    public List<Lead> getAllleads()
+    public List<LeadResponse> getAllleads()
     {
         return leadServiceImp.getAllLeads();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Lead getLeadById(@PathVariable("id") Long id)
+    public LeadResponse getLeadById(@PathVariable("id") Long id)
     {
         return leadServiceImp.getLeadById(id);
     }

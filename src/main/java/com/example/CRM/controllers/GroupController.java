@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.GroupRequest;
+import com.example.CRM.dto.response.GroupResponse;
 import com.example.CRM.entities.Group;
 import com.example.CRM.services.GroupServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ public class GroupController {
         this.groupServiceImp = groupServiceImp;
     }
 
-    @GetMapping
+    @GetMapping("/listGroups/{id}")
     @ResponseBody
-    public List<Group> getAllgroups()
+    public List<GroupResponse> getAllgroupsByAdmin(@PathVariable("id") Long id)
     {
-        return groupServiceImp.getAllGroups();
+        return groupServiceImp.getAllGroupsByAdmin(id);
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Group getGroupById(@PathVariable("id") Long id)
+    public GroupResponse getGroupById(@PathVariable("id") Long id)
     {
         return groupServiceImp.getGroupById(id);
     }

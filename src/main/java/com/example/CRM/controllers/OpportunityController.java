@@ -56,4 +56,11 @@ public class OpportunityController {
         opportunityServiceImp.deleteOpportunity(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("/ListByEmployee/{id}")
+    @ResponseBody
+    public List<Opportunity> ListByEmployeeId(@PathVariable("id") Long id)
+    {
+        return opportunityServiceImp.listByEmployee(id);
+    }
 }

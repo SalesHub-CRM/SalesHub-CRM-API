@@ -40,10 +40,7 @@ public class Client {
     @UpdateTimestamp
     private Date updatedat;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private Long EmployeeId;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "campaign_id")

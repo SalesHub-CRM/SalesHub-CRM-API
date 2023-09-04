@@ -1,80 +1,71 @@
 package com.example.CRM.services;
 
+import com.example.CRM.components.UserServiceComponent;
+import com.example.CRM.dto.mapper.GroupMapper;
 import com.example.CRM.dto.request.GroupRequest;
-import com.example.CRM.entities.Administrator;
+import com.example.CRM.dto.response.GroupResponse;
+import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Group;
-import com.example.CRM.entities.User;
-import com.example.CRM.repositories.AdministratorRepository;
 import com.example.CRM.repositories.GroupRepository;
-import com.example.CRM.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GroupServiceImp implements GroupService{
     private final GroupRepository groupRepository;
-    private final UserRepository userRepository;
-    private final AdministratorRepository administratorRepository;
+    private final UserServiceComponent userServiceComponent;
     @Autowired
-    public GroupServiceImp(GroupRepository groupRepository,UserRepository userRepository,AdministratorRepository administratorRepository)
+    public GroupServiceImp(GroupRepository groupRepository, UserServiceComponent userServiceComponent)
     {
         this.groupRepository=groupRepository;
-        this.userRepository=userRepository;
-        this.administratorRepository=administratorRepository;
+        this.userServiceComponent=userServiceComponent;
     }
 
     @Override
     public Group addGroup(GroupRequest group) {
 
-        /*System.out.println("start here");
-        System.out.println(group.getAdminId());*/
-
-        Administrator administrator = administratorRepository.findById(group.getAdminId()).orElse(null);
-        /*System.out.println("admin here");
-        System.out.println(administrator.getEmail());*/
         Group grp = new Group();
         grp.setName(group.getName());
-        groupRepository.save(grp);
-        grp.setAdministrator(administrator);
+        grp.setAdminId(group.getAdminId());
         return groupRepository.save(grp);
     }
 
     @Override
     public Group updateGroup(GroupRequest group,Long id) {
-        /*System.out.println("error starts here");
-        System.out.println(group.getAdminId());*/
-        Administrator administrator = administratorRepository.findById(group.getAdminId()).orElse(null);
-
-        /*System.out.println("admin starts here");
-        System.out.println(administrator.getEmail());*/
 
         Group grp = groupRepository.findById(id).orElse(null);
-
-        /*System.out.println("group starts here");
-        System.out.println(grp.getName());*/
-
         grp.setName(group.getName());
-
-        /*System.out.println(" modified group starts here");
-        System.out.println(grp.getName());*/
-        grp.setAdministrator(administrator);
 
         return groupRepository.save(grp);
     }
 
     @Override
-    public Group getGroupById(Long id) {
-        System.out.println(groupRepository.findById(id).orElse(null).getAdministrator());
-        return groupRepository.findById(id).orElse(null);
+    public GroupResponse getGroupById(Long id) {
+        Group group = groupRepository.findById(id).orElse(null);
+        UserResponseDTO admin = userServiceComponent.fetchUserById(group.getAdminId());
+        List<UserResponseDTO>employees = userServiceComponent.listUsersByGroupId(id);
+        GroupMapper groupMapper = new GroupMapper();
+        return groupMapper.convertToDTO(group,admin,employees);
     }
 
     @Override
-    public List<Group> getAllGroups() {
+    public List<GroupResponse> getAllGroupsByAdmin(Long adminId) {
+        UserResponseDTO admin = userServiceComponent.fetchUserById(adminId);
+        List<Group>groups = groupRepository.findByAdminId(adminId);
+        List<GroupResponse>groupResponses=new ArrayList<>();
+        GroupMapper groupMapper = new GroupMapper();
 
-        return groupRepository.findAll();
+        for (Group group : groups)
+        {
+            List<UserResponseDTO>employees = userServiceComponent.listUsersByGroupId(group.getId());
+            GroupResponse groupResponse = groupMapper.convertToDTO(group,admin,employees);
+            groupResponses.add(groupResponse);
+        }
+
+        return groupResponses;
     }
 
     @Override

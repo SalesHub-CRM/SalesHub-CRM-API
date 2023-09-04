@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.ClientRequest;
+import com.example.CRM.dto.response.ClientResponse;
 import com.example.CRM.entities.Client;
 import com.example.CRM.services.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class ClientController {
 
     @GetMapping
     @ResponseBody
-    public List<Client> getAllClients()
+    public List<ClientResponse> getAllClients()
     {
         return clientServiceImp.getAllClients();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Client getClientById(@PathVariable("id") Long id)
+    public ClientResponse getClientById(@PathVariable("id") Long id)
     {
         return clientServiceImp.getClientById(id);
     }
