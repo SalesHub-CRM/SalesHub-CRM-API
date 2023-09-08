@@ -54,7 +54,11 @@ public class GroupServiceImp implements GroupService{
     @Override
     public List<GroupResponse> getAllGroupsByAdmin(Long adminId) {
         UserResponseDTO admin = userServiceComponent.fetchUserById(adminId);
+        System.out.println("admin");
+        System.out.println(admin);
         List<Group>groups = groupRepository.findByAdminId(adminId);
+        System.out.println("groups");
+        System.out.println(groups);
         List<GroupResponse>groupResponses=new ArrayList<>();
         GroupMapper groupMapper = new GroupMapper();
 

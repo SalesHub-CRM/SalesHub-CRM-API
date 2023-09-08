@@ -24,7 +24,7 @@ public class ClientMapper {
         clientResponse.setShippingaddress(client.getShippingaddress());
         clientResponse.setType(client.getType());
         clientResponse.setUser(user);
-        clientResponse.setCampaign(client.getCampaign());
+        //clientResponse.setCampaign(client.getCampaign());
 
         return clientResponse;
     }

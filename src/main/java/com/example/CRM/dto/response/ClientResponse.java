@@ -29,5 +29,5 @@ public class ClientResponse {
     @Enumerated(EnumType.STRING)
     private EClientType type;
     private UserResponseDTO user = new UserResponseDTO();
-    private Campaign campaign;
+    //private Campaign campaign;
 }

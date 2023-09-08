@@ -41,10 +41,10 @@ public class Client {
     private Date updatedat;
 
     private Long EmployeeId;
-    @JsonBackReference
+    /*@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "campaign_id")
-    private Campaign campaign;
+    private Campaign campaign;*/
     @JsonManagedReference
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Opportunity>opportunities;

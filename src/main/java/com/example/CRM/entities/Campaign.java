@@ -41,9 +41,9 @@ public class Campaign {
     @UpdateTimestamp
     private Date updatedat;
 
-    @JsonManagedReference
+    /*@JsonManagedReference
     @OneToMany(mappedBy = "campaign",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Client>clients;
+    private List<Client>clients;*/
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id")

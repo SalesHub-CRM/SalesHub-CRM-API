@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Task")
+@RequestMapping("/task")
 public class TaskController {
     private final TaskServiceImp taskServiceImp;
     @Autowired

@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/API/lead")
+@RequestMapping("/lead")
 public class LeadController {
     private final LeadServiceImp leadServiceImp;
     @Autowired

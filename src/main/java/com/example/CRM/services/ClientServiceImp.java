@@ -33,7 +33,7 @@ public class ClientServiceImp implements ClientService{
     @Override
     public Client addClient(ClientRequest client) {
 
-        Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
+        //Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
         Client clt = new Client();
         clt.setName(client.getName());
         clt.setParentname(client.getParentname());
@@ -48,14 +48,14 @@ public class ClientServiceImp implements ClientService{
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
         clt.setEmployeeId(client.getEmployeeId());
-        clientRepository.save(clt);
-        clt.setCampaign(campaign);
+        /*clientRepository.save(clt);
+        clt.setCampaign(campaign);*/
         return clientRepository.save(clt);
     }
 
     @Override
     public Client updateClient(ClientRequest client,Long id) {
-        Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
+       // Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
         Client clt = clientRepository.findById(id).orElse(null);
         clt.setName(client.getName());
         clt.setParentname(client.getParentname());
@@ -70,7 +70,7 @@ public class ClientServiceImp implements ClientService{
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
         clt.setEmployeeId(client.getEmployeeId());
-        clt.setCampaign(campaign);
+       // clt.setCampaign(campaign);
         return clientRepository.save(clt);
     }
 

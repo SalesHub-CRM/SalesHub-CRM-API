@@ -31,7 +31,7 @@ public class Task {
     private ETaskStatus status;
     @Enumerated(EnumType.STRING)
     private EPriority priority;
-    private Long EmployeeId;
+    private Long employeeId;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
