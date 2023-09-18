@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface OpportunityRepository extends JpaRepository<Opportunity,Long> {
     List<Opportunity>findByEmployeeId(Long employeeId);
+    List<Opportunity>findByClient_Group_Id(Long groupId);
 }

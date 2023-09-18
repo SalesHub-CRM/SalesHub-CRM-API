@@ -17,7 +17,9 @@ public class GroupMapper {
         groupResponse.setUpdatedat(group.getUpdatedat());
         groupResponse.setAdmin(admin);
         groupResponse.setEmployees(employees);
-
+        groupResponse.setLeads(group.getLeads());
+        groupResponse.setClients(group.getClients());
+        groupResponse.setTasks(group.getTasks());
         return groupResponse;
     }
 }

@@ -12,5 +12,6 @@ public interface CaseService {
     public Case getCaseById(Long id);
     public List<Case>getAllCases();
     public void deleteCase(Long id);
+    public List<Case>getByGroup(Long groupId);
 
 }

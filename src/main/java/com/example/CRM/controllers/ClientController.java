@@ -57,4 +57,11 @@ public class ClientController {
         clientServiceImp.deleteClient(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("listbygroup/{id}")
+    @ResponseBody
+    public List<ClientResponse> listByGroupId(@PathVariable("id") Long id)
+    {
+        return clientServiceImp.getByGroupId(id);
+    }
 }

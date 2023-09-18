@@ -26,6 +26,8 @@ public class LeadMapper {
         leadResponse.setAnnualrevenue(lead.getAnnualrevenue());
         leadResponse.setStatus(lead.getStatus());
         leadResponse.setUser(user);
+        leadResponse.setCreatedat(lead.getCreatedat());
+        leadResponse.setUpdatedat(lead.getUpdatedat());
 
         return leadResponse;
     }

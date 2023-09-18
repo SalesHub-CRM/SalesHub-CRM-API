@@ -57,4 +57,11 @@ public class GroupController {
         groupServiceImp.deleteGroup(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("/countGroups/{id}")
+    @ResponseBody
+    public int getGroupCountByAdmin(@PathVariable("id") Long id)
+    {
+        return groupServiceImp.getGroupCountByAdmin(id);
+    }
 }

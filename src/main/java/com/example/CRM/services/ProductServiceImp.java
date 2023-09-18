@@ -13,38 +13,31 @@ import java.util.List;
 @Service
 public class ProductServiceImp implements ProductService{
     private final ProductRepository productRepository;
-    private final OpportunityRepository opportunityRepository;
     @Autowired
-    public ProductServiceImp(ProductRepository productRepository,OpportunityRepository opportunityRepository)
+    public ProductServiceImp(ProductRepository productRepository)
     {
         this.productRepository=productRepository;
-        this.opportunityRepository=opportunityRepository;
     }
 
     @Override
     public Product addProduct(ProductRequest product) {
-        Opportunity opportunity=opportunityRepository.findById(product.getOpportunityId()).orElse(null);
         Product prdt=new Product();
         prdt.setName(product.getName());
         prdt.setDescription(product.getDescription());
         prdt.setPrice(product.getPrice());
         prdt.setProductionstart(product.getProductionstart());
         prdt.setProductionend(product.getProductionend());
-        productRepository.save(prdt);
-        prdt.setOpportunity(opportunity);
         return productRepository.save(prdt);
     }
 
     @Override
     public Product updateProduct(ProductRequest product,Long id) {
-        Opportunity opportunity=opportunityRepository.findById(product.getOpportunityId()).orElse(null);
         Product prdt=productRepository.findById(id).orElse(null);
         prdt.setName(product.getName());
         prdt.setDescription(product.getDescription());
         prdt.setPrice(product.getPrice());
         prdt.setProductionstart(product.getProductionstart());
         prdt.setProductionend(product.getProductionend());
-        prdt.setOpportunity(opportunity);
         return productRepository.save(prdt);
     }
 
@@ -62,4 +55,9 @@ public class ProductServiceImp implements ProductService{
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    /*@Override
+    public List<Product> getByGroup(Long groupId) {
+        return productRepository.findByOpportunity_Client_Group_Id(groupId);
+    }*/
 }

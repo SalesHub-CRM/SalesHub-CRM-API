@@ -45,4 +45,9 @@ public class Lead {
 
     private Long employeeID;
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
+
 }

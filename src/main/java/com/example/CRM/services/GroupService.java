@@ -12,5 +12,6 @@ public interface GroupService {
     public GroupResponse getGroupById(Long id);
     public List<GroupResponse> getAllGroupsByAdmin(Long adminId);
     public void deleteGroup(Long id);
+    public int getGroupCountByAdmin(Long adminId);
 
 }

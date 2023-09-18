@@ -32,7 +32,6 @@ public class TaskServiceImp implements TaskService{
         tsk.setStatus(task.getStatus());
         tsk.setPriority(task.getPriority());
         tsk.setEmployeeId(task.getEmployeeId());
-        taskRepository.save(tsk);
         tsk.setGroup(group);
 
         return taskRepository.save(tsk);
@@ -72,5 +71,10 @@ public class TaskServiceImp implements TaskService{
     public List<Task>listByEmployeeId(Long employeeId)
     {
         return taskRepository.findByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<Task> listByGroup(Long groupId) {
+        return taskRepository.findByGroupId(groupId);
     }
 }

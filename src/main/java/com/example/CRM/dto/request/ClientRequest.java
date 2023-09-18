@@ -27,5 +27,5 @@ public class ClientRequest {
     @Enumerated(EnumType.STRING)
     private EClientType type;
     private Long employeeId;
-    //private Long campaignId;
+    private Long groupId;
 }

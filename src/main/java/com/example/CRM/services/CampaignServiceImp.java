@@ -39,9 +39,6 @@ public class CampaignServiceImp implements CampaignService{
         cpm.setExpectedresponse(campaign.getExpectedresponse());
         cpm.setType(campaign.getType());
         cpm.setStatus(campaign.getStatus());
-
-        campaignRepository.save(cpm);
-
         cpm.setProduct(product);
 
         return campaignRepository.save(cpm);
@@ -85,4 +82,9 @@ public class CampaignServiceImp implements CampaignService{
     public void deleteCampaign(Long id) {
         campaignRepository.deleteById(id);
     }
+
+   /* @Override
+    public List<Campaign> getByProduct(Long productId) {
+        return campaignRepository.findByProduct(productId);
+    }*/
 }

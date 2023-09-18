@@ -57,4 +57,11 @@ public class CampaignController {
          return ("deleted successfully");
     }
 
+   /* @GetMapping("byGroup/{id}")
+    @ResponseBody
+    public List<Campaign>getByProduct(@PathVariable("id") Long id)
+    {
+        return campaignService.getByProduct(id);
+    }*/
+
 }

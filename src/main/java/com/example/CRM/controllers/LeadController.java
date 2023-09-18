@@ -56,4 +56,11 @@ public class LeadController {
         leadServiceImp.deleteLead(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("/byGroup/{id}")
+    @ResponseBody()
+    public List<LeadResponse> getLeadsByGroupId(@PathVariable("id") Long id)
+    {
+        return leadServiceImp.getLeadsByGroupId(id);
+    }
 }

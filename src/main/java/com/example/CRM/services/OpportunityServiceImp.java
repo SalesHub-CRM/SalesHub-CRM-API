@@ -2,9 +2,13 @@ package com.example.CRM.services;
 
 import com.example.CRM.dto.request.OpportunityRequest;
 import com.example.CRM.entities.Client;
+import com.example.CRM.entities.Group;
 import com.example.CRM.entities.Opportunity;
+import com.example.CRM.entities.Product;
 import com.example.CRM.repositories.ClientRepository;
+import com.example.CRM.repositories.GroupRepository;
 import com.example.CRM.repositories.OpportunityRepository;
+import com.example.CRM.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +18,20 @@ import java.util.List;
 public class OpportunityServiceImp implements OpportunityService{
     private final OpportunityRepository opportunityRepository;
     private final ClientRepository clientRepository;
+    private final ProductRepository productRepository;
     @Autowired
-    public OpportunityServiceImp(OpportunityRepository opportunityRepository,ClientRepository clientRepository)
+    public OpportunityServiceImp(OpportunityRepository opportunityRepository,ClientRepository clientRepository,ProductRepository productRepository)
     {
         this.opportunityRepository=opportunityRepository;
         this.clientRepository=clientRepository;
+        this.productRepository=productRepository;
     }
 
     @Override
     public Opportunity addOpportunity(OpportunityRequest opportunity) {
 
         Client client = clientRepository.findById(opportunity.getClientId()).orElse(null);
-
+        Product product=productRepository.findById(opportunity.getProductId()).orElse(null);
         Opportunity opp = new Opportunity();
 
         opp.setName(opportunity.getName());
@@ -34,9 +40,8 @@ public class OpportunityServiceImp implements OpportunityService{
         opp.setProbability(opportunity.getProbability());
         opp.setStage(opportunity.getStage());
         opp.setEmployeeId(opportunity.getEmployeeId());
-        opportunityRepository.save(opp);
-
         opp.setClient(client);
+        opp.setProduct(product);
 
         return opportunityRepository.save(opp);
     }
@@ -45,7 +50,6 @@ public class OpportunityServiceImp implements OpportunityService{
     public Opportunity updateOpportunity(OpportunityRequest opportunity, Long id) {
 
         Client client = clientRepository.findById(opportunity.getClientId()).orElse(null);
-
         Opportunity opp = opportunityRepository.findById(id).orElse(null);
 
         opp.setName(opportunity.getName());
@@ -55,7 +59,6 @@ public class OpportunityServiceImp implements OpportunityService{
         opp.setStage(opportunity.getStage());
         opp.setEmployeeId(opportunity.getEmployeeId());
         opp.setClient(client);
-
         return opportunityRepository.save(opp);
     }
 
@@ -77,5 +80,10 @@ public class OpportunityServiceImp implements OpportunityService{
     @Override
     public List<Opportunity>listByEmployee(Long employeeId){
         return opportunityRepository.findByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<Opportunity> listByGroupId(Long groupId) {
+        return opportunityRepository.findByClient_Group_Id(groupId);
     }
 }

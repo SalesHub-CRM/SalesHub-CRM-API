@@ -19,13 +19,12 @@ import java.util.List;
 @Service
 public class ClientServiceImp implements ClientService{
     private final ClientRepository clientRepository;
-    private final CampaignRepository campaignRepository;
+
     private final UserServiceComponent userServiceComponent;
     @Autowired
-    public ClientServiceImp(ClientRepository clientRepository,CampaignRepository campaignRepository, UserServiceComponent userServiceComponent)
+    public ClientServiceImp(ClientRepository clientRepository, UserServiceComponent userServiceComponent)
     {
         this.clientRepository=clientRepository;
-        this.campaignRepository=campaignRepository;
         this.userServiceComponent=userServiceComponent;
     }
 
@@ -33,7 +32,7 @@ public class ClientServiceImp implements ClientService{
     @Override
     public Client addClient(ClientRequest client) {
 
-        //Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
+
         Client clt = new Client();
         clt.setName(client.getName());
         clt.setParentname(client.getParentname());
@@ -48,14 +47,12 @@ public class ClientServiceImp implements ClientService{
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
         clt.setEmployeeId(client.getEmployeeId());
-        /*clientRepository.save(clt);
-        clt.setCampaign(campaign);*/
+
         return clientRepository.save(clt);
     }
 
     @Override
     public Client updateClient(ClientRequest client,Long id) {
-       // Campaign campaign = campaignRepository.findById(client.getCampaignId()).orElse(null);
         Client clt = clientRepository.findById(id).orElse(null);
         clt.setName(client.getName());
         clt.setParentname(client.getParentname());
@@ -70,7 +67,6 @@ public class ClientServiceImp implements ClientService{
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
         clt.setEmployeeId(client.getEmployeeId());
-       // clt.setCampaign(campaign);
         return clientRepository.save(clt);
     }
 
@@ -101,5 +97,20 @@ public class ClientServiceImp implements ClientService{
     @Override
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ClientResponse> getByGroupId(Long groupId) {
+        List<Client>clients = clientRepository.findByGroupId(groupId);
+        List<ClientResponse>clientResponses=new ArrayList<>();
+        ClientMapper clientMapper = new ClientMapper();
+
+        for (Client client : clients)
+        {
+            UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+            ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
+            clientResponses.add(clientResponse);
+        }
+        return clientResponses;
     }
 }

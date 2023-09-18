@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,4 +31,6 @@ public class LeadResponse {
     @Enumerated(EnumType.STRING)
     private ELeadStatus status;
     private UserResponseDTO user = new UserResponseDTO();
+    private Date createdat;
+    private Date updatedat;
 }

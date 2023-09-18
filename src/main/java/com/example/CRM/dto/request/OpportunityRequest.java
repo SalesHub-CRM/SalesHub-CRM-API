@@ -23,4 +23,5 @@ public class OpportunityRequest {
     private EOpportunityStage stage;
     private Long employeeId;
     private Long clientId;
+    private Long productId;
 }

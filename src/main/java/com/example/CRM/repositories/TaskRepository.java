@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task,Long> {
     List<Task>findByEmployeeId(Long employeeId);
+    List<Task>findByGroupId(Long groupId);
 }

@@ -12,4 +12,5 @@ public interface TaskService {
     public List<Task> getAllTasks();
     public void deleteTask(Long id);
     public List<Task>listByEmployeeId(Long employeeId);
+    public List<Task>listByGroup(Long groupId);
 }

@@ -59,4 +59,11 @@ public class ProductController {
         productServiceImp.deleteProduct(id);
         return ("deleted successfully");
     }
+
+    /*@GetMapping("byGroup/{id}")
+    @ResponseBody
+    public List<Product> getByGroup(@PathVariable("id") Long id)
+    {
+        return productServiceImp.getByGroup(id);
+    }*/
 }

@@ -33,9 +33,8 @@ public class Product {
     @JsonManagedReference
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Campaign> campaigns;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "opportunity_id")
-    private Opportunity opportunity;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Opportunity> opportunities;
 
 }

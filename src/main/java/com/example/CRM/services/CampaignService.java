@@ -12,4 +12,5 @@ public interface CampaignService {
     public Campaign getCampaignById (Long id);
     public List<Campaign>getAllCampaigns();
     public void deleteCampaign (Long id);
+    /*public List<Campaign>getByProduct(Long groupId);*/
 }

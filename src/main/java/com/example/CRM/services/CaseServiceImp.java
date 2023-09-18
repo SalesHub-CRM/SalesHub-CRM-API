@@ -31,7 +31,6 @@ public class CaseServiceImp implements CaseService{
         ncs.setDescription(newcase.getDescription());
         ncs.setType(newcase.getType());
         ncs.setPriority(newcase.getPriority());
-        caseRepository.save(ncs);
         ncs.setClient(client);
         return caseRepository.save(ncs);
     }
@@ -61,5 +60,10 @@ public class CaseServiceImp implements CaseService{
     @Override
     public void deleteCase(Long id) {
         caseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Case> getByGroup(Long groupId) {
+        return caseRepository.findByClient_Group_Id(groupId);
     }
 }

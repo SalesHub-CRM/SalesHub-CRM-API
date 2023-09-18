@@ -34,11 +34,15 @@ public class Opportunity {
     private Date createdat;
     @UpdateTimestamp
     private Date updatedat;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "opportunity",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Product> products;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
 }

@@ -56,4 +56,11 @@ public class ContactController {
         contactServiceImp.deleteContact(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("byGroup/{id}")
+    @ResponseBody
+    public List<Contact> getByGroup(@PathVariable("id") Long id)
+    {
+        return contactServiceImp.getByGroup(id);
+    }
 }

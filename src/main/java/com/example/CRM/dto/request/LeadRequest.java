@@ -30,4 +30,5 @@ public class LeadRequest {
     @Enumerated(EnumType.STRING)
     private ELeadStatus status;
     private Long employeeID;
+    private Long groupId;
 }

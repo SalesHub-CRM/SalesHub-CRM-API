@@ -1,10 +1,12 @@
 package com.example.CRM.dto.response;
 
+import com.example.CRM.entities.Client;
+import com.example.CRM.entities.Lead;
+import com.example.CRM.entities.Opportunity;
+import com.example.CRM.entities.Task;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,5 +22,8 @@ public class GroupResponse {
     private Date updatedat;
     private UserResponseDTO admin;
     private List<UserResponseDTO>employees=new ArrayList<>();
+    private List<Lead> leads = new ArrayList<>();
+    private List<Client>clients=new ArrayList<>();
+    private List<Task>tasks=new ArrayList<>();
 
 }

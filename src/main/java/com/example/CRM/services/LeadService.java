@@ -12,5 +12,6 @@ public interface LeadService {
     public LeadResponse getLeadById(Long id);
     public List<LeadResponse>getAllLeads();
     public void deleteLead(Long id);
+    public List<LeadResponse>getLeadsByGroupId(Long groupId);
 
 }

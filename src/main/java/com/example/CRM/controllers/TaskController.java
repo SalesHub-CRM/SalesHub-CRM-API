@@ -55,10 +55,17 @@ public class TaskController {
         return ("deleted successfully");
     }
 
-    @GetMapping("/ListByEmployee/{id}")
+    @GetMapping("/byEmployee/{id}")
     @ResponseBody
     public List<Task> listByEmployeeId(@PathVariable("id") Long id)
     {
         return taskServiceImp.listByEmployeeId(id);
+    }
+
+    @GetMapping("/byGroup/{id}")
+    @ResponseBody
+    public List<Task> listByGroup(@PathVariable("id") Long id)
+    {
+        return taskServiceImp.listByGroup(id);
     }
 }

@@ -56,4 +56,11 @@ public class CaseController {
         caseServiceImp.deleteCase(id);
         return ("deleted successfully");
     }
+
+    @GetMapping("byGroup/{id}")
+    @ResponseBody
+    public List<Case>getByGroup(@PathVariable("id") Long id)
+    {
+        return caseServiceImp.getByGroup(id);
+    }
 }

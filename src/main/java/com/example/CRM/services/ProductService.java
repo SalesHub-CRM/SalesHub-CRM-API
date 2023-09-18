@@ -11,4 +11,5 @@ public interface ProductService {
     public Product getProductById(Long id);
     public List<Product> getAllProducts();
     public void deleteProduct(Long id);
+    /*public List<Product>getByGroup(Long groupId);*/
 }

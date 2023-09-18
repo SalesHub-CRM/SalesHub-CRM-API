@@ -1,6 +1,7 @@
 package com.example.CRM.dto.response;
 
 import com.example.CRM.entities.Campaign;
+import com.example.CRM.entities.Contact;
 import com.example.CRM.entities.EClientType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,6 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,5 +34,7 @@ public class ClientResponse {
     @Enumerated(EnumType.STRING)
     private EClientType type;
     private UserResponseDTO user = new UserResponseDTO();
-    //private Campaign campaign;
+    private List<Contact>contacts=new ArrayList<>();
+    private Date createdat;
+    private Date updatedat;
 }

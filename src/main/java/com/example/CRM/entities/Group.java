@@ -30,17 +30,16 @@ public class Group {
     private Date updatedat;
     private Long adminId;
 
-
-
-/*    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Administrator administrator;
     @JsonManagedReference
-    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Employee>employees;*/
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Lead> leads;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task>tasks;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "group",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Client>clients;
 
 }

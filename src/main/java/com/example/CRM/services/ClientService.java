@@ -12,5 +12,6 @@ public interface ClientService {
     public ClientResponse getClientById(Long id);
     public List<ClientResponse> getAllClients();
     public void deleteClient(Long id);
+    public List<ClientResponse>getByGroupId(Long groupId);
 
 }

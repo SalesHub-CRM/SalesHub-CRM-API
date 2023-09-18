@@ -35,7 +35,6 @@ public class ContactServiceImp implements ContactService{
         cnt.setAddress2(contact.getAddress2());
         cnt.setCity(contact.getCity());
         cnt.setZipcode(contact.getZipcode());
-        contactRepository.save(cnt);
         cnt.setClient(client);
         return contactRepository.save(cnt);
     }
@@ -71,5 +70,10 @@ public class ContactServiceImp implements ContactService{
     @Override
     public void deleteContact(Long id) {
         contactRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Contact> getByGroup(Long groupId) {
+        return contactRepository.findByClient_Group_Id(groupId);
     }
 }
