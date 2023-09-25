@@ -1,6 +1,10 @@
 package com.example.CRM.services;
 
+import com.example.CRM.components.UserServiceComponent;
+import com.example.CRM.dto.mapper.OpportunityMapper;
 import com.example.CRM.dto.request.OpportunityRequest;
+import com.example.CRM.dto.response.OpportunityResponse;
+import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Client;
 import com.example.CRM.entities.Group;
 import com.example.CRM.entities.Opportunity;
@@ -12,6 +16,7 @@ import com.example.CRM.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,12 +24,15 @@ public class OpportunityServiceImp implements OpportunityService{
     private final OpportunityRepository opportunityRepository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+    private final UserServiceComponent userServiceComponent;
     @Autowired
-    public OpportunityServiceImp(OpportunityRepository opportunityRepository,ClientRepository clientRepository,ProductRepository productRepository)
+    public OpportunityServiceImp(OpportunityRepository opportunityRepository,ClientRepository clientRepository,
+                                 ProductRepository productRepository,UserServiceComponent userServiceComponent)
     {
         this.opportunityRepository=opportunityRepository;
         this.clientRepository=clientRepository;
         this.productRepository=productRepository;
+        this.userServiceComponent=userServiceComponent;
     }
 
     @Override
@@ -63,13 +71,33 @@ public class OpportunityServiceImp implements OpportunityService{
     }
 
     @Override
-    public Opportunity getOpportunityById(Long id) {
-        return opportunityRepository.findById(id).orElse(null);
+    public OpportunityResponse getOpportunityById(Long id) {
+
+        Opportunity opportunity = opportunityRepository.findById(id).orElse(null);
+        UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        return opportunityMapper.convertToDTO(opportunity,employee);
     }
 
     @Override
-    public List<Opportunity> GetAllOpportunities() {
-        return opportunityRepository.findAll();
+    public List<OpportunityResponse> GetAllOpportunities() {
+
+        List<Opportunity> opportunities = opportunityRepository.findAll();
+
+        List<OpportunityResponse>opportunityResponses=new ArrayList<>();
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        for(Opportunity opportunity : opportunities)
+        {
+            UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+            OpportunityResponse opportunityResponse = opportunityMapper.convertToDTO(opportunity,employee);
+            opportunityResponses.add(opportunityResponse);
+        }
+
+        return opportunityResponses;
     }
 
     @Override
@@ -78,12 +106,40 @@ public class OpportunityServiceImp implements OpportunityService{
     }
 
     @Override
-    public List<Opportunity>listByEmployee(Long employeeId){
-        return opportunityRepository.findByEmployeeId(employeeId);
+    public List<OpportunityResponse>listByEmployee(Long employeeId){
+
+        List<Opportunity> opportunities = opportunityRepository.findByEmployeeId(employeeId);
+
+        List<OpportunityResponse>opportunityResponses=new ArrayList<>();
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        for(Opportunity opportunity : opportunities)
+        {
+            UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+            OpportunityResponse opportunityResponse = opportunityMapper.convertToDTO(opportunity,employee);
+            opportunityResponses.add(opportunityResponse);
+        }
+
+        return opportunityResponses;
     }
 
     @Override
-    public List<Opportunity> listByGroupId(Long groupId) {
-        return opportunityRepository.findByClient_Group_Id(groupId);
+    public List<OpportunityResponse> listByGroupId(Long groupId) {
+
+        List<Opportunity> opportunities = opportunityRepository.findByClient_Group_Id(groupId);
+
+        List<OpportunityResponse>opportunityResponses=new ArrayList<>();
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        for(Opportunity opportunity : opportunities)
+        {
+            UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+            OpportunityResponse opportunityResponse = opportunityMapper.convertToDTO(opportunity,employee);
+            opportunityResponses.add(opportunityResponse);
+        }
+
+        return opportunityResponses;
     }
 }

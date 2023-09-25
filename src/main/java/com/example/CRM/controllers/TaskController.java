@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.TaskRequest;
+import com.example.CRM.dto.response.TaskResponse;
 import com.example.CRM.entities.Task;
 import com.example.CRM.services.TaskServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class TaskController {
 
     @GetMapping
     @ResponseBody
-    public List<Task> getAllTasks()
+    public List<TaskResponse> getAllTasks()
     {
         return taskServiceImp.getAllTasks();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Task getTaskById(@PathVariable("id") Long id)
+    public TaskResponse getTaskById(@PathVariable("id") Long id)
     {
         return taskServiceImp.getTaskById(id);
     }
@@ -57,14 +58,14 @@ public class TaskController {
 
     @GetMapping("/byEmployee/{id}")
     @ResponseBody
-    public List<Task> listByEmployeeId(@PathVariable("id") Long id)
+    public List<TaskResponse> listByEmployeeId(@PathVariable("id") Long id)
     {
         return taskServiceImp.listByEmployeeId(id);
     }
 
     @GetMapping("/byGroup/{id}")
     @ResponseBody
-    public List<Task> listByGroup(@PathVariable("id") Long id)
+    public List<TaskResponse> listByGroup(@PathVariable("id") Long id)
     {
         return taskServiceImp.listByGroup(id);
     }

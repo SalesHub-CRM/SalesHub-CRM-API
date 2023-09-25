@@ -7,6 +7,7 @@ import com.example.CRM.dto.response.ClientResponse;
 import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Campaign;
 import com.example.CRM.entities.Client;
+import com.example.CRM.entities.EClientType;
 import com.example.CRM.repositories.CampaignRepository;
 import com.example.CRM.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,4 +114,46 @@ public class ClientServiceImp implements ClientService{
         }
         return clientResponses;
     }
+
+    @Override
+    public int getCountByEmployeeId(Long employeeId) {
+        List<Client>clients=clientRepository.findByEmployeeId(employeeId);
+        return clients.size();
+    }
+
+    @Override
+    public List<ClientResponse> getByEmployeeId(Long employeeId) {
+
+        List<Client>clients=clientRepository.findByEmployeeId(employeeId);
+
+        List<ClientResponse>clientResponses=new ArrayList<>();
+        ClientMapper clientMapper = new ClientMapper();
+
+        for (Client client : clients)
+        {
+            UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+            ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
+            clientResponses.add(clientResponse);
+        }
+        return clientResponses;
+    }
+
+    @Override
+    public List<ClientResponse> fetchByEmployeeAndType(Long employeeId, EClientType type) {
+
+        List<Client>clients=clientRepository.findByEmployeeIdAndType(employeeId,type);
+
+        List<ClientResponse>clientResponses=new ArrayList<>();
+        ClientMapper clientMapper = new ClientMapper();
+
+        for (Client client : clients)
+        {
+            UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+            ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
+            clientResponses.add(clientResponse);
+        }
+        return clientResponses;
+    }
+
+
 }

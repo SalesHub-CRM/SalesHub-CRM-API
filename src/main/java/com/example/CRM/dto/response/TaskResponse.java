@@ -1,29 +1,31 @@
-package com.example.CRM.dto.request;
+package com.example.CRM.dto.response;
 
 import com.example.CRM.entities.EPriority;
 import com.example.CRM.entities.ETaskStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class TaskRequest {
+@NoArgsConstructor
+public class TaskResponse {
+    private Long id;
     private String subject;
     private String comment;
-    private Long assignedto;
+    private UserResponseDTO assignedto = new UserResponseDTO();
     private Date duedate;
     @Enumerated(EnumType.STRING)
     private ETaskStatus status;
     @Enumerated(EnumType.STRING)
     private EPriority priority;
-    private Long groupId;
-    private Long employeeId;
+    private UserResponseDTO employee = new UserResponseDTO();
+    private Date createdat;
+    private Date updatedat;
 }

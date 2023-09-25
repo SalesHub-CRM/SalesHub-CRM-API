@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.OpportunityRequest;
+import com.example.CRM.dto.response.OpportunityResponse;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.services.OpportunityServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ public class OpportunityController {
 
     @GetMapping
     @ResponseBody
-    public List<Opportunity> getAllOpportunities()
+    public List<OpportunityResponse> getAllOpportunities()
     {
         return opportunityServiceImp.GetAllOpportunities();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Opportunity getOpportunityById(@PathVariable("id") Long id)
+    public OpportunityResponse getOpportunityById(@PathVariable("id") Long id)
     {
         return opportunityServiceImp.getOpportunityById(id);
     }
@@ -59,14 +60,14 @@ public class OpportunityController {
 
     @GetMapping("/byEmployee/{id}")
     @ResponseBody
-    public List<Opportunity> ListByEmployeeId(@PathVariable("id") Long id)
+    public List<OpportunityResponse> ListByEmployeeId(@PathVariable("id") Long id)
     {
         return opportunityServiceImp.listByEmployee(id);
     }
 
     @GetMapping("/bygroup/{id}")
     @ResponseBody
-    public List<Opportunity> listByGroupId(@PathVariable("id") Long id)
+    public List<OpportunityResponse> listByGroupId(@PathVariable("id") Long id)
     {
         return opportunityServiceImp.listByGroupId(id);
     }

@@ -1,6 +1,7 @@
 package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.ClientRequest;
+import com.example.CRM.dto.request.EmployeeTypeRequest;
 import com.example.CRM.dto.response.ClientResponse;
 import com.example.CRM.entities.Client;
 import com.example.CRM.services.ClientServiceImp;
@@ -64,4 +65,27 @@ public class ClientController {
     {
         return clientServiceImp.getByGroupId(id);
     }
+
+    @GetMapping("listbyemployee/{id}")
+    @ResponseBody
+    public List<ClientResponse> listByEmployeeId(@PathVariable("id") Long id)
+    {
+        return clientServiceImp.getByEmployeeId(id);
+    }
+
+    @GetMapping("countbyemployee/{id}")
+    @ResponseBody
+    public int countByEmployee(@PathVariable("id") Long id)
+    {
+        return clientServiceImp.getCountByEmployeeId(id);
+    }
+
+    @GetMapping("getByEmployeeType")
+    @ResponseBody
+    public List<ClientResponse> fetchByEmployeeAndType(@RequestBody EmployeeTypeRequest request)
+    {
+        return clientServiceImp.fetchByEmployeeAndType(request.getEmployeeId(), request.getType());
+    }
+
+
 }

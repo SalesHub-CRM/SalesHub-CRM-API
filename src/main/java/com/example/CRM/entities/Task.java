@@ -23,15 +23,13 @@ public class Task {
     private Long id;
     private String subject;
     private String comment;
-    private String assignedto; //hadhi fiha employé, badalha object
-
-    // private Employee assignedto;
+    private Long assignedto; //this will have a user object that the task will be assigned to
     private Date duedate;
     @Enumerated(EnumType.STRING)
     private ETaskStatus status;
     @Enumerated(EnumType.STRING)
     private EPriority priority;
-    private Long employeeId;
+    private Long employeeId; //this one has the user that created the task
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp
