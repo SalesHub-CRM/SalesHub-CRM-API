@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface LeadRepository extends JpaRepository<Lead,Long> {
     public List<Lead> getLeadsByGroupId(Long groupId);
+    public List<Lead>getLeadByEmployeeID(Long employeeId);
 }

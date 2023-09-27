@@ -129,4 +129,44 @@ public class LeadServiceImp implements LeadService{
 
         return leadResponses;
     }
+
+    @Override
+    public List<LeadResponse> getLeadsByAdminId(Long adminId) {
+
+        List<Group>groups=groupRepository.findByAdminId(adminId);
+        List<LeadResponse> leadResponses = new ArrayList<>();
+        LeadMapper leadMapper = new LeadMapper();
+
+        for(Group group : groups)
+        {
+            List<Lead>leads=group.getLeads();
+            for(Lead lead : leads)
+            {
+                UserResponseDTO user = userServiceComponent.fetchUserById(lead.getEmployeeID());
+                LeadResponse leadResponse = leadMapper.convertToDTO(lead, user);
+                leadResponses.add(leadResponse);
+            }
+        }
+
+        return leadResponses;
+    }
+
+    @Override
+    public List<LeadResponse> getLeadsByEmployeeId(Long employeeId) {
+
+        List<Lead>allLeads=leadRepository.getLeadByEmployeeID(employeeId);
+
+        List<LeadResponse> leadResponses=new ArrayList<>();
+
+        LeadMapper leadMapper = new LeadMapper();
+
+        for(Lead lead : allLeads)
+        {
+            UserResponseDTO user = userServiceComponent.fetchUserById(lead.getEmployeeID());
+            LeadResponse leadResponse = leadMapper.convertToDTO(lead,user);
+            leadResponses.add(leadResponse);
+        }
+
+        return leadResponses;
+    }
 }

@@ -87,5 +87,12 @@ public class ClientController {
         return clientServiceImp.fetchByEmployeeAndType(request.getEmployeeId(), request.getType());
     }
 
+    @GetMapping("getByAdmin/{id}")
+    @ResponseBody
+    public List<ClientResponse>fetchByAdminId(@PathVariable("id") Long id)
+    {
+        return clientServiceImp.getByAdminId(id);
+    }
+
 
 }

@@ -69,4 +69,18 @@ public class TaskController {
     {
         return taskServiceImp.listByGroup(id);
     }
+
+    @GetMapping("/byAdminId/{id}")
+    @ResponseBody
+    public List<TaskResponse>listByAdmin(@PathVariable("id") Long id)
+    {
+        return taskServiceImp.listByAdminId(id);
+    }
+
+    @GetMapping("/byAssigned/{id}")
+    @ResponseBody
+    public List<TaskResponse>listByAssigned(@PathVariable("id") Long id)
+    {
+        return taskServiceImp.listByAssignedTo(id);
+    }
 }

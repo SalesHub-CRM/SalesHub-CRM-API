@@ -63,4 +63,18 @@ public class LeadController {
     {
         return leadServiceImp.getLeadsByGroupId(id);
     }
+
+    @GetMapping("/byAdmin/{id}")
+    @ResponseBody()
+    public List<LeadResponse>getByAdminId(@PathVariable("id") Long id)
+    {
+        return leadServiceImp.getLeadsByAdminId(id);
+    }
+
+    @GetMapping("/byEmployee/{id}")
+    @ResponseBody()
+    public List<LeadResponse>getByEmployeeId(@PathVariable("id") Long id)
+    {
+        return leadServiceImp.getLeadsByEmployeeId(id);
+    }
 }

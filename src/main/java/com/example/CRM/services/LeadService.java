@@ -13,5 +13,7 @@ public interface LeadService {
     public List<LeadResponse>getAllLeads();
     public void deleteLead(Long id);
     public List<LeadResponse>getLeadsByGroupId(Long groupId);
+    public List<LeadResponse>getLeadsByAdminId(Long adminId);
+    public List<LeadResponse>getLeadsByEmployeeId(Long employeeId);
 
 }

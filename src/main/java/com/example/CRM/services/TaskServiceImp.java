@@ -132,4 +132,46 @@ public class TaskServiceImp implements TaskService{
 
         return taskResponses;
     }
+
+    @Override
+    public List<TaskResponse> listByAdminId(Long adminId) {
+
+        List<Group>groups=groupRepository.findByAdminId(adminId);
+        List<TaskResponse>taskResponses=new ArrayList<>();
+        TaskMapper taskMapper = new TaskMapper();
+
+        for(Group group : groups)
+        {
+            List<Task>tasks=group.getTasks();
+            for(Task task : tasks)
+            {
+                UserResponseDTO creator = userServiceComponent.fetchUserById(task.getEmployeeId());
+                UserResponseDTO assignedTo = userServiceComponent.fetchUserById(task.getAssignedto());
+                TaskResponse taskResponse = taskMapper.convertToDTO(task,creator,assignedTo);
+                taskResponses.add(taskResponse);
+            }
+        }
+
+        return taskResponses;
+    }
+
+    @Override
+    public List<TaskResponse> listByAssignedTo(Long assignedTo) {
+
+        List<Task>allTasks = taskRepository.findByAssignedto(assignedTo);
+
+        List<TaskResponse>taskResponses=new ArrayList<>();
+
+        TaskMapper taskMapper = new TaskMapper();
+
+        for(Task task : allTasks)
+        {
+            UserResponseDTO creator = userServiceComponent.fetchUserById(task.getEmployeeId());
+            UserResponseDTO assignedToEmp = userServiceComponent.fetchUserById(task.getAssignedto());
+            TaskResponse taskResponse = taskMapper.convertToDTO(task,creator,assignedToEmp);
+            taskResponses.add(taskResponse);
+        }
+
+        return taskResponses;
+    }
 }

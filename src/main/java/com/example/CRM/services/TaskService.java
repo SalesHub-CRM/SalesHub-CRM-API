@@ -14,4 +14,6 @@ public interface TaskService {
     public void deleteTask(Long id);
     public List<TaskResponse>listByEmployeeId(Long employeeId);
     public List<TaskResponse>listByGroup(Long groupId);
+    public List<TaskResponse>listByAdminId(Long adminId);
+    public List<TaskResponse>listByAssignedTo(Long assignedTo);
 }

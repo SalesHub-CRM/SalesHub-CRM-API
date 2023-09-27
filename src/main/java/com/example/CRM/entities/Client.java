@@ -40,7 +40,7 @@ public class Client {
     @UpdateTimestamp
     private Date updatedat;
 
-    private Long EmployeeId;
+    private Long employeeId;
 
     @JsonBackReference
     @ManyToOne

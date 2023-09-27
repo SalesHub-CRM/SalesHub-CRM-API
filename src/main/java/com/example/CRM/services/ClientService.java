@@ -17,5 +17,6 @@ public interface ClientService {
     public int getCountByEmployeeId(Long employeeId);
     public List<ClientResponse>getByEmployeeId(Long employeeId);
     public List<ClientResponse>fetchByEmployeeAndType(Long employeeId, EClientType type);
+    public List<ClientResponse>getByAdminId(Long adminId);
 
 }

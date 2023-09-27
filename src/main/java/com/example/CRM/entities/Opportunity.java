@@ -29,7 +29,7 @@ public class Opportunity {
     private Integer probability;
     @Enumerated(EnumType.STRING)
     private EOpportunityStage stage;
-    private Long employeeId;
+    private Long employeeId; //employee in charge of the campaign
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp

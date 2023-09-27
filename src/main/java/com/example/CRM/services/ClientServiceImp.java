@@ -8,8 +8,10 @@ import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Campaign;
 import com.example.CRM.entities.Client;
 import com.example.CRM.entities.EClientType;
+import com.example.CRM.entities.Group;
 import com.example.CRM.repositories.CampaignRepository;
 import com.example.CRM.repositories.ClientRepository;
+import com.example.CRM.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,13 +22,14 @@ import java.util.List;
 @Service
 public class ClientServiceImp implements ClientService{
     private final ClientRepository clientRepository;
-
+    private final GroupRepository groupRepository;
     private final UserServiceComponent userServiceComponent;
     @Autowired
-    public ClientServiceImp(ClientRepository clientRepository, UserServiceComponent userServiceComponent)
+    public ClientServiceImp(ClientRepository clientRepository, UserServiceComponent userServiceComponent,GroupRepository groupRepository)
     {
         this.clientRepository=clientRepository;
         this.userServiceComponent=userServiceComponent;
+        this.groupRepository=groupRepository;
     }
 
 
@@ -152,6 +155,27 @@ public class ClientServiceImp implements ClientService{
             ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
             clientResponses.add(clientResponse);
         }
+        return clientResponses;
+    }
+
+    @Override
+    public List<ClientResponse> getByAdminId(Long adminId) {
+
+        List<Group>groups=groupRepository.findByAdminId(adminId);
+        List<ClientResponse>clientResponses=new ArrayList<>();
+        ClientMapper clientMapper = new ClientMapper();
+
+        for (Group group : groups)
+        {
+            List<Client>clients=group.getClients();
+            for (Client client : clients)
+            {
+                UserResponseDTO user = userServiceComponent.fetchUserById(client.getEmployeeId());
+                ClientResponse clientResponse = clientMapper.convertToDTO(client,user);
+                clientResponses.add(clientResponse);
+            }
+        }
+
         return clientResponses;
     }
 
