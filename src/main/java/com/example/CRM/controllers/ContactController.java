@@ -63,4 +63,11 @@ public class ContactController {
     {
         return contactServiceImp.getByGroup(id);
     }
+
+    @GetMapping("byClient/{id}")
+    @ResponseBody
+    public List<Contact> getByClient(@PathVariable("id") Long id)
+    {
+        return contactServiceImp.getByClient(id);
+    }
 }

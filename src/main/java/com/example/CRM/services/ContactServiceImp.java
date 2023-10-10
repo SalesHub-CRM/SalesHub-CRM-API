@@ -41,7 +41,6 @@ public class ContactServiceImp implements ContactService{
 
     @Override
     public Contact updateContact(ContactRequest contact,Long id) {
-        Client client=clientRepository.findById(contact.getClientId()).orElse(null);
         Contact cnt=contactRepository.findById(id).orElse(null);
         cnt.setSalutation(contact.getSalutation());
         cnt.setFirstname(contact.getFirstname());
@@ -53,7 +52,6 @@ public class ContactServiceImp implements ContactService{
         cnt.setAddress2(contact.getAddress2());
         cnt.setCity(contact.getCity());
         cnt.setZipcode(contact.getZipcode());
-        cnt.setClient(client);
         return contactRepository.save(cnt);
     }
 
@@ -75,5 +73,10 @@ public class ContactServiceImp implements ContactService{
     @Override
     public List<Contact> getByGroup(Long groupId) {
         return contactRepository.findByClient_Group_Id(groupId);
+    }
+
+    @Override
+    public List<Contact> getByClient(Long clientId) {
+        return contactRepository.findByClientId(clientId);
     }
 }

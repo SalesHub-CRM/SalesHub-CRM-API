@@ -12,4 +12,5 @@ public interface ContactService {
     public List<Contact> getAllContacts();
     public void deleteContact(Long id);
     public List<Contact>getByGroup(Long groupId);
+    public List<Contact>getByClient(Long clientId);
 }

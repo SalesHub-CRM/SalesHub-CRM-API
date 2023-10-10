@@ -35,7 +35,7 @@ public class ClientServiceImp implements ClientService{
 
     @Override
     public Client addClient(ClientRequest client) {
-
+        Group group = groupRepository.findById(client.getGroupId()).orElse(null);
 
         Client clt = new Client();
         clt.setName(client.getName());
@@ -51,6 +51,7 @@ public class ClientServiceImp implements ClientService{
         clt.setShippingaddress(client.getShippingaddress());
         clt.setType(client.getType());
         clt.setEmployeeId(client.getEmployeeId());
+        clt.setGroup(group);
 
         return clientRepository.save(clt);
     }

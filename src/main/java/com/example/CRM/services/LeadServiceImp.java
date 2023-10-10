@@ -58,7 +58,7 @@ public class LeadServiceImp implements LeadService{
 
     @Override
     public Lead updateLead(LeadRequest lead, Long id) {
-        Group group = groupRepository.findById(lead.getGroupId()).orElse(null);
+        //Group group = groupRepository.findById(lead.getGroupId()).orElse(null);
         Lead ld = leadRepository.findById(id).orElse(null);
 
         ld.setSalutation(lead.getSalutation());
@@ -77,7 +77,7 @@ public class LeadServiceImp implements LeadService{
         ld.setAnnualrevenue(lead.getAnnualrevenue());
         ld.setStatus(lead.getStatus());
         ld.setEmployeeID(lead.getEmployeeID());
-        ld.setGroup(group);
+        //ld.setGroup(group);
         return leadRepository.save(ld);
     }
 
