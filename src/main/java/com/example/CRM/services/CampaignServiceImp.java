@@ -1,12 +1,15 @@
 package com.example.CRM.services;
 
+import com.example.CRM.dto.mapper.CampaignMapper;
 import com.example.CRM.dto.request.CampaignRequest;
+import com.example.CRM.dto.response.CampaignResponse;
 import com.example.CRM.entities.*;
 import com.example.CRM.repositories.CampaignRepository;
 import com.example.CRM.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,14 +71,23 @@ public class CampaignServiceImp implements CampaignService{
     }
 
     @Override
-    public Campaign getCampaignById(Long id) {
-        return campaignRepository.findById(id).orElse(null);
+    public CampaignResponse getCampaignById(Long id) {
+        Campaign campaign = campaignRepository.findById(id).orElse(null);
+        CampaignMapper campaignMapper = new CampaignMapper();
+        return campaignMapper.convertToDTO(campaign);
     }
 
     @Override
-    public List<Campaign> getAllCampaigns() {
+    public List<CampaignResponse> getAllCampaigns() {
 
-        return campaignRepository.findAll();
+        List<Campaign>campaigns = campaignRepository.findAll();
+        List<CampaignResponse>campaignResponses=new ArrayList<>();
+        CampaignMapper campaignMapper = new CampaignMapper();
+        for(Campaign campaign : campaigns){
+            CampaignResponse campaignResponse = campaignMapper.convertToDTO(campaign);
+            campaignResponses.add(campaignResponse);
+        }
+        return campaignResponses;
     }
 
     @Override
@@ -83,8 +95,28 @@ public class CampaignServiceImp implements CampaignService{
         campaignRepository.deleteById(id);
     }
 
-   /* @Override
-    public List<Campaign> getByProduct(Long productId) {
-        return campaignRepository.findByProduct(productId);
-    }*/
+    @Override
+    public List<CampaignResponse> listByProductId(Long productId) {
+        List<Campaign>campaigns = campaignRepository.findByProduct_Id(productId);
+        List<CampaignResponse>campaignResponses=new ArrayList<>();
+        CampaignMapper campaignMapper = new CampaignMapper();
+        for(Campaign campaign : campaigns){
+            CampaignResponse campaignResponse = campaignMapper.convertToDTO(campaign);
+            campaignResponses.add(campaignResponse);
+        }
+        return campaignResponses;
+    }
+
+    @Override
+    public List<CampaignResponse> listByGroupId(Long groupId) {
+        List<Campaign>campaigns = campaignRepository.findCampaignsByGroupId(groupId);
+        List<CampaignResponse>campaignResponses=new ArrayList<>();
+        CampaignMapper campaignMapper = new CampaignMapper();
+        for(Campaign campaign : campaigns){
+            CampaignResponse campaignResponse = campaignMapper.convertToDTO(campaign);
+            campaignResponses.add(campaignResponse);
+        }
+        return campaignResponses;
+    }
+
 }

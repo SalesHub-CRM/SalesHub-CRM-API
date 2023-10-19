@@ -14,4 +14,6 @@ public interface OpportunityService {
     public void deleteOpportunity(Long id);
     public List<OpportunityResponse>listByEmployee(Long employeeId);
     public List<OpportunityResponse>listByGroupId(Long groupId);
+    public List<OpportunityResponse>listByProductId(Long productId);
+    public List<OpportunityResponse>listByClientId(Long clientId);
 }

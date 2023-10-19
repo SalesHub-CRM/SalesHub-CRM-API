@@ -1,13 +1,19 @@
 package com.example.CRM.dto.response;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.CRM.entities.ECampaignStatus;
+import com.example.CRM.entities.ECampaignType;
+import com.example.CRM.entities.Product;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CampaignResponse {
     private Long id;
     private String name;
@@ -19,23 +25,13 @@ public class CampaignResponse {
     private Double actualcost;
     private Integer employeenumber;
     private Integer expectedresponse;
+    @Enumerated(EnumType.STRING)
+    private ECampaignStatus status;
+    @Enumerated(EnumType.STRING)
+    private ECampaignType type;
+    private Product productObject;
     private Date createdat;
     private Date updatedat;
 
 
-    public CampaignResponse(Long id, String name, String description, Date startdate, Date enddate, Double expectedrevenue, Double budget, Double actualcost, Integer employeenumber, Integer expectedresponse, Date createdat, Date updatedat) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        this.expectedrevenue = expectedrevenue;
-        this.budget = budget;
-        this.actualcost = actualcost;
-        this.employeenumber = employeenumber;
-        this.expectedresponse = expectedresponse;
-        this.createdat = createdat;
-        this.updatedat = updatedat;
-
-    }
 }

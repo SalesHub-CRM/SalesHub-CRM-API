@@ -26,6 +26,7 @@ public class Product {
     private Double price;
     private Date productionstart;
     private Date productionend;
+    private Long ownerId;
     @CreationTimestamp
     private Date createdat;
     @UpdateTimestamp

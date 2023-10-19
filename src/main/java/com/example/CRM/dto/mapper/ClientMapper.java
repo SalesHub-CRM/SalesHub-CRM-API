@@ -25,6 +25,8 @@ public class ClientMapper {
         clientResponse.setType(client.getType());
         clientResponse.setUser(user);
         clientResponse.setContacts(client.getContacts());
+        clientResponse.setCases(client.getCases());
+        clientResponse.setOpportunities(client.getOpportunities());
         clientResponse.setCreatedat(client.getCreatedat());
         clientResponse.setUpdatedat(client.getUpdatedat());
 

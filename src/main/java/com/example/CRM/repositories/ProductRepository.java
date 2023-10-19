@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
     /*List<Product> findByOpportunity_Client_Group_Id(Long groupId);*/
+
+    List<Product>findByOwnerId(Long ownerId);
+
     @Query("SELECT DISTINCT p FROM Product p " +
             "JOIN p.opportunities o " +
             "JOIN o.client c " +

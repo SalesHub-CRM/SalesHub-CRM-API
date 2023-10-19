@@ -21,6 +21,8 @@ public class OpportunityResponse {
     @Enumerated(EnumType.STRING)
     private EOpportunityStage stage;
     private UserResponseDTO employee = new UserResponseDTO();
+    private Long ClientId;
+    private Long ProductId;
     private Date createdat;
     private Date updatedat;
 }

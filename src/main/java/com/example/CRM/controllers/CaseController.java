@@ -2,11 +2,14 @@ package com.example.CRM.controllers;
 
 import com.example.CRM.dto.request.CaseRequest;
 import com.example.CRM.entities.Case;
+import com.example.CRM.entities.Client;
 import com.example.CRM.services.CaseServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //@CrossOrigin("*")
 @RestController
@@ -57,10 +60,25 @@ public class CaseController {
         return ("deleted successfully");
     }
 
-    @GetMapping("byGroup/{id}")
+    @GetMapping("/byGroup/{id}")
     @ResponseBody
     public List<Case>getByGroup(@PathVariable("id") Long id)
     {
         return caseServiceImp.getByGroup(id);
+    }
+
+
+    @GetMapping("/byClient/{id}")
+    @ResponseBody
+    public List<Case>getByClient(@PathVariable("id") Long id)
+    {
+        return caseServiceImp.getByClient(id);
+    }
+
+    @GetMapping("/clientByCase/{id}")
+    @ResponseBody
+    public ResponseEntity<Client> getClientByCaseId(@PathVariable Long id) {
+        Optional<Client> client = caseServiceImp.findClientByCaseId(id);
+        return client.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

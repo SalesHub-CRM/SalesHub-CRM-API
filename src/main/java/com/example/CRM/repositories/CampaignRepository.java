@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign,Long> {
-    /*List<Campaign>findByProduct(Long productId);*/
+    List<Campaign>findByProduct_Id(Long productId);
 
     @Query("SELECT c FROM Campaign c " +
             "JOIN c.product p " +

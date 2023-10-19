@@ -12,4 +12,7 @@ public interface ProductService {
     public List<Product> getAllProducts();
     public void deleteProduct(Long id);
     /*public List<Product>getByGroup(Long groupId);*/
+    public List<Product>fetchByOwnerGroup(Long groupId);
+    public List<Product>fetchByOwnerId(Long ownerId);
+
 }

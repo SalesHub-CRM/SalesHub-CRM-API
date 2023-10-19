@@ -1,8 +1,6 @@
 package com.example.CRM.dto.response;
 
-import com.example.CRM.entities.Campaign;
-import com.example.CRM.entities.Contact;
-import com.example.CRM.entities.EClientType;
+import com.example.CRM.entities.*;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -35,6 +33,8 @@ public class ClientResponse {
     private EClientType type;
     private UserResponseDTO user = new UserResponseDTO();
     private List<Contact>contacts=new ArrayList<>();
+    private List<Case>cases=new ArrayList<>();
+    private List<Opportunity>opportunities=new ArrayList<>();
     private Date createdat;
     private Date updatedat;
 }

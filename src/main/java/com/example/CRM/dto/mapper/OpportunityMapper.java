@@ -16,6 +16,8 @@ public class OpportunityMapper {
         opportunityResponse.setProbability(opportunity.getProbability());
         opportunityResponse.setStage(opportunity.getStage());
         opportunityResponse.setEmployee(employee);
+        opportunityResponse.setClientId(opportunity.getClient().getId());
+        opportunityResponse.setProductId(opportunity.getProduct().getId());
         opportunityResponse.setCreatedat(opportunity.getCreatedat());
         opportunityResponse.setUpdatedat(opportunity.getUpdatedat());
 

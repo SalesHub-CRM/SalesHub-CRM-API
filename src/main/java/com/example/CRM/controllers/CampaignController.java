@@ -23,14 +23,14 @@ public class CampaignController {
 
     @GetMapping
     @ResponseBody
-    public List<Campaign>getCampaigns()
+    public List<CampaignResponse>getCampaigns()
     {
         return campaignService.getAllCampaigns();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Campaign getCampaignById(@PathVariable("id") Long id)
+    public CampaignResponse getCampaignById(@PathVariable("id") Long id)
     {
         return campaignService.getCampaignById(id);
     }
@@ -57,11 +57,19 @@ public class CampaignController {
          return ("deleted successfully");
     }
 
-   /* @GetMapping("byGroup/{id}")
+    @GetMapping("byGroup/{id}")
     @ResponseBody
-    public List<Campaign>getByProduct(@PathVariable("id") Long id)
+    public List<CampaignResponse>listByGroupId(@PathVariable("id") Long id)
     {
-        return campaignService.getByProduct(id);
-    }*/
+        return campaignService.listByGroupId(id);
+    }
+
+
+    @GetMapping("byProduct/{id}")
+    @ResponseBody
+    public List<CampaignResponse>listByProductId(@PathVariable("id") Long id)
+    {
+        return campaignService.listByProductId(id);
+    }
 
 }

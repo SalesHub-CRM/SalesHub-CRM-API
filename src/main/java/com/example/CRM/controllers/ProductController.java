@@ -66,4 +66,18 @@ public class ProductController {
     {
         return productServiceImp.getByGroup(id);
     }*/
+
+    @GetMapping("byOwnerGroup/{id}")
+    @ResponseBody
+    public List<Product> getByOwnerGroup(@PathVariable("id") Long id)
+    {
+        return productServiceImp.fetchByOwnerGroup(id);
+    }
+
+    @GetMapping("byOwnerId/{id}")
+    @ResponseBody
+    public List<Product> getByOwnerId(@PathVariable("id") Long id)
+    {
+        return productServiceImp.fetchByOwnerId(id);
+    }
 }

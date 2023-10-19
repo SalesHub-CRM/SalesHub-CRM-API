@@ -17,4 +17,5 @@ public class ProductRequest {
     private Double price;
     private Date productionstart;
     private Date productionend;
+    private Long ownerId;
 }

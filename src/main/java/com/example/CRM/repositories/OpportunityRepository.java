@@ -10,4 +10,6 @@ import java.util.List;
 public interface OpportunityRepository extends JpaRepository<Opportunity,Long> {
     List<Opportunity>findByEmployeeId(Long employeeId);
     List<Opportunity>findByClient_Group_Id(Long groupId);
+    List<Opportunity>findByProduct_Id(Long productId);
+    List<Opportunity>findByClient_Id(Long clientId);
 }

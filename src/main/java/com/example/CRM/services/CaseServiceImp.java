@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CaseServiceImp implements CaseService{
@@ -65,5 +66,16 @@ public class CaseServiceImp implements CaseService{
     @Override
     public List<Case> getByGroup(Long groupId) {
         return caseRepository.findByClient_Group_Id(groupId);
+    }
+
+    @Override
+    public List<Case> getByClient(Long clientId) {
+        return caseRepository.findByClient_Id(clientId);
+    }
+
+    @Override
+    public Optional<Client> findClientByCaseId(Long caseId) {
+        Optional<Case> caseOptional = caseRepository.findById(caseId);
+        return caseOptional.map(Case::getClient);
     }
 }

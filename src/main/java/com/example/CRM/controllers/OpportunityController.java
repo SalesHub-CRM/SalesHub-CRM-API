@@ -65,10 +65,24 @@ public class OpportunityController {
         return opportunityServiceImp.listByEmployee(id);
     }
 
-    @GetMapping("/bygroup/{id}")
+    @GetMapping("/byGroup/{id}")
     @ResponseBody
     public List<OpportunityResponse> listByGroupId(@PathVariable("id") Long id)
     {
         return opportunityServiceImp.listByGroupId(id);
+    }
+
+    @GetMapping("/byProduct/{id}")
+    @ResponseBody
+    public List<OpportunityResponse> listByProductId(@PathVariable("id") Long id)
+    {
+        return opportunityServiceImp.listByProductId(id);
+    }
+
+    @GetMapping("/byClient/{id}")
+    @ResponseBody
+    public List<OpportunityResponse> listByClientId(@PathVariable("id") Long id)
+    {
+        return opportunityServiceImp.listByClientId(id);
     }
 }

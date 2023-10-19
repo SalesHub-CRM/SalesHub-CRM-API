@@ -59,35 +59,35 @@ public class ClientController {
         return ("deleted successfully");
     }
 
-    @GetMapping("listbygroup/{id}")
+    @GetMapping("/listbygroup/{id}")
     @ResponseBody
     public List<ClientResponse> listByGroupId(@PathVariable("id") Long id)
     {
         return clientServiceImp.getByGroupId(id);
     }
 
-    @GetMapping("listbyemployee/{id}")
+    @GetMapping("/listbyemployee/{id}")
     @ResponseBody
     public List<ClientResponse> listByEmployeeId(@PathVariable("id") Long id)
     {
         return clientServiceImp.getByEmployeeId(id);
     }
 
-    @GetMapping("countbyemployee/{id}")
+    @GetMapping("/countbyemployee/{id}")
     @ResponseBody
     public int countByEmployee(@PathVariable("id") Long id)
     {
         return clientServiceImp.getCountByEmployeeId(id);
     }
 
-    @GetMapping("getByEmployeeType")
+    @GetMapping("/getByEmployeeType")
     @ResponseBody
     public List<ClientResponse> fetchByEmployeeAndType(@RequestBody EmployeeTypeRequest request)
     {
         return clientServiceImp.fetchByEmployeeAndType(request.getEmployeeId(), request.getType());
     }
 
-    @GetMapping("getByAdmin/{id}")
+    @GetMapping("/getByAdmin/{id}")
     @ResponseBody
     public List<ClientResponse>fetchByAdminId(@PathVariable("id") Long id)
     {

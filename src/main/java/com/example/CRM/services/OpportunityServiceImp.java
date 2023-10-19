@@ -142,4 +142,42 @@ public class OpportunityServiceImp implements OpportunityService{
 
         return opportunityResponses;
     }
+
+    @Override
+    public List<OpportunityResponse> listByProductId(Long productId) {
+
+        List<Opportunity> opportunities = opportunityRepository.findByProduct_Id(productId);
+
+        List<OpportunityResponse>opportunityResponses=new ArrayList<>();
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        for(Opportunity opportunity : opportunities)
+        {
+            UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+            OpportunityResponse opportunityResponse = opportunityMapper.convertToDTO(opportunity,employee);
+            opportunityResponses.add(opportunityResponse);
+        }
+
+        return opportunityResponses;
+    }
+
+    @Override
+    public List<OpportunityResponse> listByClientId(Long clientId) {
+
+        List<Opportunity> opportunities = opportunityRepository.findByClient_Id(clientId);
+
+        List<OpportunityResponse>opportunityResponses=new ArrayList<>();
+
+        OpportunityMapper opportunityMapper = new OpportunityMapper();
+
+        for(Opportunity opportunity : opportunities)
+        {
+            UserResponseDTO employee = userServiceComponent.fetchUserById(opportunity.getEmployeeId());
+            OpportunityResponse opportunityResponse = opportunityMapper.convertToDTO(opportunity,employee);
+            opportunityResponses.add(opportunityResponse);
+        }
+
+        return opportunityResponses;
+    }
 }

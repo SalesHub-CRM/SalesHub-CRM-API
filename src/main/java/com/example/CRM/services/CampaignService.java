@@ -9,8 +9,9 @@ import java.util.List;
 public interface CampaignService {
     public Campaign addCampaign (CampaignRequest campaign);
     public Campaign updateCampaign (CampaignRequest campaign, Long id);
-    public Campaign getCampaignById (Long id);
-    public List<Campaign>getAllCampaigns();
+    public CampaignResponse getCampaignById (Long id);
+    public List<CampaignResponse>getAllCampaigns();
     public void deleteCampaign (Long id);
-    /*public List<Campaign>getByProduct(Long groupId);*/
+    public List<CampaignResponse>listByProductId(Long productId);
+    public List<CampaignResponse>listByGroupId(Long groupId);
 }
