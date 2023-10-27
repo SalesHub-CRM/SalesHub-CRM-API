@@ -2,6 +2,7 @@ package com.example.CRM.services;
 
 import com.example.CRM.dto.request.ClientRequest;
 import com.example.CRM.dto.response.ClientResponse;
+import com.example.CRM.dto.response.ClientStats;
 import com.example.CRM.entities.Client;
 import com.example.CRM.entities.EClientType;
 
@@ -18,5 +19,6 @@ public interface ClientService {
     public List<ClientResponse>getByEmployeeId(Long employeeId);
     public List<ClientResponse>fetchByEmployeeAndType(Long employeeId, EClientType type);
     public List<ClientResponse>getByAdminId(Long adminId);
+    public ClientStats getClientStats(Long adminId);
 
 }

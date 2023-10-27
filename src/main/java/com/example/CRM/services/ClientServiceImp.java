@@ -4,6 +4,7 @@ import com.example.CRM.components.UserServiceComponent;
 import com.example.CRM.dto.mapper.ClientMapper;
 import com.example.CRM.dto.request.ClientRequest;
 import com.example.CRM.dto.response.ClientResponse;
+import com.example.CRM.dto.response.ClientStats;
 import com.example.CRM.dto.response.UserResponseDTO;
 import com.example.CRM.entities.Campaign;
 import com.example.CRM.entities.Client;
@@ -12,11 +13,14 @@ import com.example.CRM.entities.Group;
 import com.example.CRM.repositories.CampaignRepository;
 import com.example.CRM.repositories.ClientRepository;
 import com.example.CRM.repositories.GroupRepository;
+import com.example.CRM.utils.UtilsFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,12 +28,14 @@ public class ClientServiceImp implements ClientService{
     private final ClientRepository clientRepository;
     private final GroupRepository groupRepository;
     private final UserServiceComponent userServiceComponent;
+    private final UtilsFunctions utilsFunctions;
     @Autowired
-    public ClientServiceImp(ClientRepository clientRepository, UserServiceComponent userServiceComponent,GroupRepository groupRepository)
+    public ClientServiceImp(ClientRepository clientRepository, UserServiceComponent userServiceComponent,GroupRepository groupRepository,UtilsFunctions utilsFunctions)
     {
         this.clientRepository=clientRepository;
         this.userServiceComponent=userServiceComponent;
         this.groupRepository=groupRepository;
+        this.utilsFunctions=utilsFunctions;
     }
 
 
@@ -178,6 +184,34 @@ public class ClientServiceImp implements ClientService{
         }
 
         return clientResponses;
+    }
+
+    @Override
+    public ClientStats getClientStats(Long adminId) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        calendar.add(Calendar.MONTH,-1);
+
+
+        List<Long> groupIds = groupRepository.findIdsByAdminId(adminId);
+        System.out.println("groupIds");
+        System.out.println(groupIds);
+
+        Date firstDayOfCurrentMonth = utilsFunctions.getFirstDayOfMonth(currentDate);
+        Date firstDayOfPreviousMonth = utilsFunctions.getFirstDayOfMonth(calendar.getTime());
+
+        List<Client>clientsCreatedThisMonth=clientRepository.findByCreatedatBetweenAndGroupIdIn(firstDayOfCurrentMonth,currentDate,groupIds);
+        List<Client>clientsCreatedLastMonth=clientRepository.findByCreatedatBetweenAndGroupIdIn(firstDayOfPreviousMonth,firstDayOfCurrentMonth,groupIds);
+
+        List<Client>clientList=utilsFunctions.getClientListByAdminId(adminId);
+
+
+        int totalClients= clientList.size();
+        int clientsThisMonth = clientsCreatedThisMonth.size();
+        int clientsPreviousMonth = clientsCreatedLastMonth.size();
+        int difference = clientsThisMonth-clientsPreviousMonth;
+
+        return new ClientStats(totalClients,clientsThisMonth,difference);
     }
 
 

@@ -3,6 +3,7 @@ package com.example.CRM.controllers;
 import com.example.CRM.dto.request.ClientRequest;
 import com.example.CRM.dto.request.EmployeeTypeRequest;
 import com.example.CRM.dto.response.ClientResponse;
+import com.example.CRM.dto.response.ClientStats;
 import com.example.CRM.entities.Client;
 import com.example.CRM.services.ClientServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,14 @@ public class ClientController {
     public List<ClientResponse>fetchByAdminId(@PathVariable("id") Long id)
     {
         return clientServiceImp.getByAdminId(id);
+    }
+
+
+    @GetMapping("/getClientStats/{adminId}")
+    @ResponseBody
+    public ClientStats getClientStatistics(@PathVariable("adminId") Long adminId)
+    {
+        return clientServiceImp.getClientStats(adminId);
     }
 
 
